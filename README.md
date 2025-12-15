@@ -1,0 +1,151 @@
+# DRAGOLANDIA - VERSIÓN 1
+
+#### Autor: Manuel Dono Araújo
+
+## INTRODUCCIÓN
+
+Dragolandia consiste de un juego de rol de combate por turnos, en el que el jugador toma control de un mago y se adentra en un bosque para enfrentarse a diferentes monstruos.
+
+El jugador debera determinar sus estadisticas antes de adentrarse en el bosque, en el cual se encontrara con diferentes tipos de monstrous. El combate sera por turnos, en el que cada parte debera usar su turno para realizar ataques y movimientos.
+
+Un mago tiene acceso a una lista de hechizos, los cuales puede usar para atacar a un monstruo. Al atacar al monstruo con uno de esos hechizos (asignados aleatoriamente), se le pasara un efecto especifico al monstruo.
+
+Existe un dragón que solo puede habitar en un bosque.
+
+## ANALISIS
+
+El programa esta compuesto de las siguientes clases: Bosque, Monstruo, Mago, Hechizo. Cada uno tiene los siguientes atributos:
+
+- Mago: id, nombre, vida, mana, hechizos
+- Hechizo: id, nombre, efecto
+- Monstruo: id, nombre, vida, fuerza, tipo, rareza, estado
+- Bosque: id, nombre, nivelPeligro, monstruoJefe
+- Dragon: id, nombre, intensidadFuego, resistencia
+
+#### DIAGRAMA DE CLASES
+
+```mermaid
+classDiagram
+    class Mago{
+        <<class>>
+        int ID
+        String nombre
+        String vida
+        String mana
+        List<Hechizo> hechizos
+        lanzarHechizo(Monstruo)
+        lanzarHechizo(Monstruo, Hechizo)
+    }
+    class Hechizo {
+        <<class>>
+        int ID
+        String nombre
+        Efecto efecto
+        aplicarEfecto(Monstruo monstruo)
+    }
+    class Monstruo{
+        <<class>>
+        int ID
+        String nombre
+        Integer vida
+        Integer fuerza
+        Tipo tipo
+        Rareza rareza
+        Estado estado
+        atacarMago(Mago mago)
+        compararMonstruo(Monstruo other)
+    }
+    class Dragon{
+        <<class>>
+        Integer ID
+        String nombre
+        Integer intensidadFuego
+        Integer resistencia
+    }
+    class Bosque{
+        <<class>>
+        Integer id
+        String nombre
+        Integer nivelPeligro
+        Monstruo monstruoJefe
+        ArrayList<Monstruo> listaMonstruos
+        mostrarJefe()
+        cambiarJefe(Monstruo nuevoJefe)
+        engadirMonstruo(Monstruo nuevoMonstruo)
+    }
+    class Tipo{
+        <<enumeration>>
+        OGRO
+        TROLL
+        ESPECTRO
+    }
+    class Rareza{
+        <<enumeration>>
+        NORMAL
+        RARO
+        EPICO
+    }
+    class Efecto{
+        <<enumeration>>
+        NIEVE
+        FUEGO
+        RAYO
+        AGUA
+        TIERRA
+        PSIQUE
+    }
+    class Estado{
+        <<enumeration>>
+        NORMAL
+        CONGELADO
+        QUEMADO
+        ELECTROCUTADO
+        MOJADO
+        ENTERRADO
+        CONFUNDIDO
+    }
+
+    Monstruo --> Tipo
+    Monstruo --> Rareza
+    Monstruo --> Estado
+    Hechizo --> Efecto
+
+
+```
+
+## DISEÑO
+
+Un bosque alberga una lista de monstruos, y de ellos se establece un monstruo jefe. En ese bosque, un mago entra. El mago lucha con los monstruos del bosque.
+
+Un monstruo puede ser de un tipo y rareza especificos.
+
+#### DIAGRAMA ENTIDAD-RELACIÓN
+
+```mermaid
+erDiagram
+    Monstruo ||--|| Bosque : tiene
+    Mago ||--|| Monstruo : lanzaHechizo
+    Monstruo ||--|| Mago : ataca
+  
+
+    Mago {
+        int ID
+        String nombre
+        String vida
+        String mana
+    }
+    Monstruo {
+        int ID
+        String nombre
+        Integer vida
+        tipo tipo
+        Integer fuerza
+        rareza rareza
+    }
+    Bosque {
+        Integer id
+        String nombre
+        Integer nivelPeligro
+        Monstruo monstruoJefe
+    }
+```
