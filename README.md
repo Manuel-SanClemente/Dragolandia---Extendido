@@ -17,9 +17,9 @@ Existe un dragón que solo puede habitar en un bosque. Este puede exhalar fuego.
 El programa esta compuesto de las siguientes clases: Bosque, Monstruo, Mago, Hechizo. Cada uno tiene los siguientes atributos:
 
 - Mago: id, nombre, vida, mana, hechizos
-- Hechizo: id, nombre, efecto
+- Hechizo: id, nombre, efecto, mago
 - Monstruo: id, nombre, vida, fuerza, tipo, rareza, estado
-- Bosque: id, nombre, nivelPeligro, monstruoJefe
+- Bosque: id, nombre, nivelPeligro, monstruoJefe, listaMonstruos
 - Dragon: id, nombre, intensidadFuego, resistencia
 
 #### DIAGRAMA DE CLASES
