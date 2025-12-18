@@ -71,7 +71,7 @@ classDiagram
         -String nombre
         -Integer nivelPeligro
         -Monstruo monstruoJefe
-        -ArrayList<Monstruo> listaMonstruos
+        -List<Monstruo> listaMonstruos
         +mostrarJefe()
         +cambiarJefe(Monstruo nuevoJefe)
         +engadirMonstruo(Monstruo nuevoMonstruo)
@@ -186,7 +186,7 @@ erDiagram
         Integer id PK
         String nombre
         Integer nivelPeligro
-        List Monstruo FK
+        List monstruos FK
         Monstruo monstruoJefe FK
         Dragon dragon FK
     }
