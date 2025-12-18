@@ -12,10 +12,12 @@ public class baseDatos {
     public baseDatos() {}
 
     /**
-     * Para añadir un mago, bosque y monstruo jefe a la Base de Datos.  
-     * @param mago
-     * @param bosque
-     * @param monstruo
+     * Se añaden los parametros (que representan diferentes entidades) a la Base de Datos por Hibernate
+     * @param mago un mago, con todos sus atributos
+     * @param bosque un bosque, con todos sus atributos
+     * @param monstruo un monstruo, con todos sus atributos
+     * @param hechizos una lista de hechizos
+     * @param dragon un dragón, con todos sus atributos
      */
     public void engadirEstructura(Mago mago, Bosque bosque, Monstruo monstruo, List<Hechizo> hechizos, Dragon dragon){
         System.out.println("\nIniciando conexión con Base de datos \n");
@@ -31,10 +33,12 @@ public class baseDatos {
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
 
+        // Por cada hechizo que se encuentra en la lista de hechizos del mago, se añade a la Base de Datos
         for (Hechizo hechizo : hechizos) {
             session.persist(hechizo);            
         }
 
+        // Se añaden el mago, monstruo, dragón y bosque a la Base de Datos
         session.persist(mago);
         session.persist(monstruo);
         session.persist(dragon);

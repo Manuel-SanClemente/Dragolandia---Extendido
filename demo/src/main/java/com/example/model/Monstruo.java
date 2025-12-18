@@ -6,17 +6,23 @@ import jakarta.persistence.*;
 @Table(name="monstruos")
 public class Monstruo {
 
+    // Enumeración de posibles tipos de monstruo. 
+
     public enum tipo{
         OGRO,
         TROLL,
         ESPECTRO
     }
 
+    // Enumeración de rarezas de monstruo. 
+
     public enum rareza{
         NORMAL,
         RARO,
         EPICO
     }
+
+    // Enumeración de posibles estados que un monstruo puede tener. 
 
     public enum Estado{
         NORMAL,

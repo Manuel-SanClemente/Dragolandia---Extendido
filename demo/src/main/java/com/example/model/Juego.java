@@ -10,6 +10,10 @@ import com.example.model.Monstruo.tipo;
 public class Juego {
     public Juego(){}
 
+    /**
+     * Esta función se encarga de generar un bosque, con un dragón y lista de monstruos asociados.
+     * @return el bosque generado
+     */
     public Bosque generarEstructuras(){
         ArrayList<Monstruo> listaMonstruos = new ArrayList<Monstruo>();
 
@@ -24,6 +28,13 @@ public class Juego {
         return bosque;
     }
 
+    /**
+     * Esta función permite la creación del mago. Además de los atributos del mago en si, se crea una lista de 5 hechizos aleatorios para el mago. 
+     * @param nuevoNombre el nombre del mago
+     * @param nuevoVida la vida del mago
+     * @param nuevoMana la mana del mago
+     * @return el mago creado.
+     */
     public Mago nuevoMago(String nuevoNombre, Integer nuevoVida, Integer nuevoMana) {
         Mago nuevoMago = new Mago();
         ArrayList<Hechizo> listaHechizos = new ArrayList<Hechizo>();
@@ -41,6 +52,12 @@ public class Juego {
         return nuevoMago;
     }
 
+    /**
+     * Para definir los atributos del bosque en si. Gracias a esta función, obtenemos el nivel de peligro y el monstruo jefe del bosque, además de establecer el resto de sus atributos.
+     * @param listaMonstruos la lista de monstruos del bosque
+     * @param dragon el dragón asociado a ese bosque
+     * @return el bosque con todos sus atributos definidos.
+     */
     public Bosque nuevoBosque(ArrayList<Monstruo> listaMonstruos, Dragon dragon) {
         Bosque nuevoBosque = new Bosque();
         nuevoBosque.setNombre("Bosque #"+nuevoBosque.getId());
@@ -50,6 +67,7 @@ public class Juego {
 
         rareza rarezaJefe = nuevoBosque.getMonstruoJefe().getRareza();
 
+        // Para obtener el nivel de peligro del bosque, se
 
         if (rarezaJefe == rareza.EPICO) {
             nuevoBosque.setNivelPeligro(3);
@@ -64,6 +82,10 @@ public class Juego {
         return null;
     }
 
+    /**
+     * Para crear un monstruo. Se establecen varios de sus atributos aleatoriamente, y se establecen otros basandose en los resultados.
+     * @return el monstruo generado 
+     */
     public Monstruo nuevoMonstruo(){
         Monstruo nuevoMonstruo = new Monstruo();
         Random random = new Random();
@@ -127,6 +149,10 @@ public class Juego {
         return null;
     }
 
+    /**
+     * Para crear un dragón. Se establecen sus atributos aleatoriamente.
+     * @return el dragón creado.
+     */
     public Dragon nuevoDragon(){
         Random random = new Random();
 
@@ -144,6 +170,11 @@ public class Juego {
         return dragon;
     }
 
+    /**
+     * Para definir el monstruo jefe del bosque. Simplemente, se escoge a uno de la lista aleatoriamente
+     * @param bosque
+     * @param listaMonstruos
+     */
     public void definirJefe(Bosque bosque, ArrayList<Monstruo> listaMonstruos){
         Random random = new Random();
 
@@ -152,11 +183,15 @@ public class Juego {
         bosque.cambiarJefe(listaMonstruos.get(index));
     }
 
+    /**
+     * Para generar un hechizo para el mago. Este se relaciona al mago para el que se esta generando el hechizo, y dependiendo del efecto (escogido aleatoriamente), se le da un nombre.
+     * @param mago el mago al que el hechizo se le va a relacionar
+     * @return el hechizo generado
+     */
     public Hechizo generarHechizo(Mago mago) {
         Random random = new Random();
         Hechizo hechizo = new Hechizo();
 
-        hechizo.setMago(mago);
         Efecto[] efectos = Efecto.values();
         Integer index = random.nextInt(1,efectos.length);
         
@@ -189,6 +224,7 @@ public class Juego {
                 break;
         }
 
+        hechizo.setMago(mago);
         return hechizo;
     }
     

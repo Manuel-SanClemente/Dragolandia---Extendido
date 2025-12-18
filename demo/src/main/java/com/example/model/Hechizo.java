@@ -4,10 +4,14 @@ import com.example.model.Monstruo.Estado;
 
 import jakarta.persistence.*;
 
+/**
+ * Clase Hechizo. Sus atributos son los utilizados para la tabla "hechizos" en la base de datos
+ */
 @Entity(name="hechizo")
 @Table(name="hechizos")
 public class Hechizo {
 
+    // Enumeración de los posibles efectos que un hechizo puede tener.
     public enum Efecto{
         NIEVE,
         FUEGO,
@@ -17,13 +21,19 @@ public class Hechizo {
         PSIQUE
     }
 
+    // ID es generado automaticamente por Identity
+
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Integer id;
     private String nombre;
 
+    // Valor enumerado de tipo string
+
     @Enumerated(EnumType.STRING)
     private Efecto efecto;
+
+    // Para establecer la relación con la tabla mago, se establece una foreign key
 
     @ManyToOne
     @JoinColumn(name = "mago_id")
@@ -63,6 +73,11 @@ public class Hechizo {
         this.mago = mago;
     }
 
+    /**
+     * Para aplicar un efecto al monstruo. Esto se usa en conjunción al un ataque por el mago. 
+     * Para cumplir esto, se busca el efecto del hechizo en si, y se aplica un equivalente al monstruo
+     * @param monstruo el monstruo receptor del hechizo
+     */
     public void aplicarEfecto(Monstruo monstruo) {
         switch (this.efecto) {
             case NIEVE:

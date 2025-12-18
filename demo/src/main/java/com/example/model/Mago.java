@@ -19,6 +19,10 @@ public class Mago {
     private Integer vida;
     private Integer mana;
 
+    // Esto es una lista de posibles hechizos que un mago puede tener.
+    // Hace referencia a la tabla Hechizos, y cada hechizo esta "mapeado por" el atributo mago que existe en cada uno
+    // Para establecer la relación con la tabla hechizo, se establece una foreign key
+
     @OneToMany(mappedBy = "mago", cascade = CascadeType.ALL, fetch = FetchType.LAZY)   
     private List<Hechizo> hechizos;
 
@@ -81,6 +85,11 @@ public class Mago {
         monstruo.setVida(vidaMonstruoNueva);
     }
 
+    /**
+     * Recibe como parametro un monstruo y un hechizo, y basandose en el nivel de mana del mago, más el hechizo en si, se reducen los puntos de vida del monstruo, y se le aplica un efecto
+     * @param monstruo el monstruo que esa siendo atacado
+     * @param hechizo el hechizo que esta siendo usado
+     */
     public void lanzarHechizo(Monstruo monstruo, Hechizo hechizo) {
         Integer vidaMonstruo = monstruo.getVida();
         Integer magia = this.getMana();

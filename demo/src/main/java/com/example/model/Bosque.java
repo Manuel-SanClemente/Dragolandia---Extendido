@@ -31,7 +31,7 @@ public class Bosque {
     @OneToMany(mappedBy = "bosque", cascade = CascadeType.ALL, fetch = FetchType.LAZY)    
     private List<Monstruo> listaMonstruos; 
 
-
+    // Para establecer la relación con el dragón del bosque, se establece una foreign key referenciandolo
 
     @OneToOne
     @JoinColumn(name = "dragon_id")

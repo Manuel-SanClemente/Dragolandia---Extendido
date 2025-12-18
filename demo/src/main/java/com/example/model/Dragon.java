@@ -2,14 +2,18 @@ package com.example.model;
 
 import jakarta.persistence.*;
 
+/**
+ * Clase Dragón. Sus atributos son los utilizados para la tabla "dragones" en la base de datos
+ */
 @Entity(name="dragon")
 @Table(name="dragones")
 public class Dragon {
 
+    // ID es generado automaticamente por Identity
+
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Integer id;
-
     private String nombre;
     private Integer intensidadFuego;
     private Integer resistencia;
@@ -48,6 +52,10 @@ public class Dragon {
         this.resistencia = resistencia;
     }
 
+    /**
+     * El dragón exhala fuego, que, usando el valor de intensidadFuego, resta la vida a un monstruo
+     * @param monstruo el monstruo que esta siendo quemado/atacado
+     */
     public void exhalar(Monstruo monstruo) {
         monstruo.setVida(monstruo.getVida() - intensidadFuego);        
     }
