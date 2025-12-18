@@ -148,7 +148,7 @@ erDiagram
         String nombre
         String vida
         String mana
-        List hechizos
+        List hechizos FK
     }
 
     Hechizo {
@@ -178,7 +178,7 @@ erDiagram
         Integer id PK
         String nombre
         Integer nivelPeligro
-        List Monstruo
+        List Monstruo FK
         Monstruo monstruoJefe FK
         Dragon dragon FK
     }
