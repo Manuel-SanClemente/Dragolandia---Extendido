@@ -21,10 +21,10 @@
 
 
         <!-- Registrar entidades -->
+        <mapping class="com.example.model.Hechizo"/>
         <mapping class="com.example.model.Mago"/>
         <mapping class="com.example.model.Monstruo"/>
         <mapping class="com.example.model.Bosque"/>
-        <mapping class="com.example.model.Hechizo"/>
         <mapping class="com.example.model.Dragon"/>
     </session-factory>
 </hibernate-configuration>

@@ -25,6 +25,10 @@ public class Hechizo {
     @Enumerated(EnumType.STRING)
     private Efecto efecto;
 
+    @ManyToOne
+    @JoinColumn(name = "mago_id")
+    private Mago mago;
+
     public Hechizo(){}
 
     public Integer getId() {
@@ -51,9 +55,12 @@ public class Hechizo {
         this.efecto = efecto;
     }
 
-    @Override
-    public String toString() {
-        return "Hechizo [id=" + id + ", nombre=" + nombre + ", efecto=" + efecto + "]";
+    public Mago getMago() {
+        return mago;
+    }
+
+    public void setMago(Mago mago) {
+        this.mago = mago;
     }
 
     public void aplicarEfecto(Monstruo monstruo) {

@@ -31,6 +31,12 @@ public class Bosque {
     @OneToMany(mappedBy = "bosque", cascade = CascadeType.ALL, fetch = FetchType.LAZY)    
     private List<Monstruo> listaMonstruos; 
 
+
+
+    @OneToOne
+    @JoinColumn(name = "dragon_id")
+    private Dragon dragon;
+
     public Bosque() {}
 
     public Integer getId() {
@@ -73,6 +79,14 @@ public class Bosque {
         this.listaMonstruos = listaMonstruos;
     }
 
+    public Dragon getDragon() {
+        return dragon;
+    }
+
+    public void setDragon(Dragon dragon) {
+        this.dragon = dragon;
+    }
+
     /**
      * Para mostrar la información del monstruo jefe
      */
@@ -99,6 +113,10 @@ public class Bosque {
     @Override
     public String toString() {
         return "Bosque [id=" + id + ", nombre=" + nombre + ", nivelPeligro=" + nivelPeligro + ", monstruoJefe="
-                + monstruoJefe + ", listaMonstruos=" + listaMonstruos + "]";
+                + monstruoJefe + ", listaMonstruos=" + listaMonstruos + ", dragon=" + dragon + "]";
     }
+
+    
+
+    
 }

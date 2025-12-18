@@ -17,36 +17,35 @@ public class Juego {
             Monstruo monstruo = this.nuevoMonstruo();
             listaMonstruos.add(monstruo);
         }
-        
-        Bosque bosque = this.nuevoBosque(listaMonstruos);
 
-        nuevoDragon(bosque);
+        Dragon dragon = nuevoDragon();
+        Bosque bosque = this.nuevoBosque(listaMonstruos, dragon);
 
         return bosque;
     }
 
     public Mago nuevoMago(String nuevoNombre, Integer nuevoVida, Integer nuevoMana) {
+        Mago nuevoMago = new Mago();
         ArrayList<Hechizo> listaHechizos = new ArrayList<Hechizo>();
-        Hechizo hechizoInicial = generarHechizo();
-        listaHechizos.add(hechizoInicial);
 
         for (int i = 0; i < 5; i++) {
-            Hechizo hechizoi = generarHechizo();
+            Hechizo hechizoi = generarHechizo(nuevoMago);
             listaHechizos.add(hechizoi);      
         }
 
-        Mago nuevoMago = new Mago();
         nuevoMago.setNombre(nuevoNombre);
         nuevoMago.setMana(nuevoMana);
         nuevoMago.setVida(nuevoVida);
         nuevoMago.setHechizos(listaHechizos);
+
         return nuevoMago;
     }
 
-    public Bosque nuevoBosque(ArrayList<Monstruo> listaMonstruos) {
+    public Bosque nuevoBosque(ArrayList<Monstruo> listaMonstruos, Dragon dragon) {
         Bosque nuevoBosque = new Bosque();
         nuevoBosque.setNombre("Bosque #"+nuevoBosque.getId());
         nuevoBosque.setListaMonstruos(listaMonstruos);
+        nuevoBosque.setDragon(dragon);
         definirJefe(nuevoBosque, listaMonstruos);
 
         rareza rarezaJefe = nuevoBosque.getMonstruoJefe().getRareza();
@@ -128,7 +127,7 @@ public class Juego {
         return null;
     }
 
-    public Dragon nuevoDragon(Bosque bosque){
+    public Dragon nuevoDragon(){
         Random random = new Random();
 
         ArrayList<String> nombres = new ArrayList<String>(); 
@@ -141,7 +140,6 @@ public class Juego {
         dragon.setNombre(nombres.get(random.nextInt(0, nombres.size())));
         dragon.setIntensidadFuego(random.nextInt(250, 750));
         dragon.setResistencia(random.nextInt(500, 10000));
-        dragon.setBosque(bosque);
 
         return dragon;
     }
@@ -154,10 +152,11 @@ public class Juego {
         bosque.cambiarJefe(listaMonstruos.get(index));
     }
 
-    public Hechizo generarHechizo() {
+    public Hechizo generarHechizo(Mago mago) {
         Random random = new Random();
         Hechizo hechizo = new Hechizo();
 
+        hechizo.setMago(mago);
         Efecto[] efectos = Efecto.values();
         Integer index = random.nextInt(1,efectos.length);
         

@@ -2,11 +2,7 @@ package com.example.model;
 
 import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 /**
  * Clase Mago. Sus atributos son los utilizados para la tabla "magos" en la Base de datos
@@ -22,6 +18,8 @@ public class Mago {
     private String nombre;
     private Integer vida;
     private Integer mana;
+
+    @OneToMany(mappedBy = "mago", cascade = CascadeType.ALL, fetch = FetchType.LAZY)   
     private List<Hechizo> hechizos;
 
     public Mago() {}

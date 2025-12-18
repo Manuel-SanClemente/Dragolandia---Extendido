@@ -10,6 +10,6 @@ public class Main {
         interfaz.probar(new Juego());
 
         baseDatos bd = new baseDatos();        
-        bd.engadirEstructura(interfaz.getMago(), interfaz.getBosque(), interfaz.getMonstruoJefe());
+        bd.engadirEstructura(interfaz.getMago(), interfaz.getBosque(), interfaz.getMonstruoJefe(), interfaz.getMago().getHechizos(), interfaz.getBosque().getDragon());
     }
 }

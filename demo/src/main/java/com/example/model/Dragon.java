@@ -1,17 +1,18 @@
 package com.example.model;
 
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
+@Entity(name="dragon")
+@Table(name="dragones")
 public class Dragon {
+
+    @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Integer id;
+
     private String nombre;
     private Integer intensidadFuego;
     private Integer resistencia;
-
-    @OneToOne
-    @JoinColumn(name = "bosque_id")
-    private Bosque bosque;
 
     public Dragon() {}
 
@@ -45,14 +46,6 @@ public class Dragon {
 
     public void setResistencia(Integer resistencia) {
         this.resistencia = resistencia;
-    }
-
-    public Bosque getBosque() {
-        return bosque;
-    }
-
-    public void setBosque(Bosque bosque) {
-        this.bosque = bosque;
     }
 
     public void exhalar(Monstruo monstruo) {
