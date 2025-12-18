@@ -28,50 +28,52 @@ El programa esta compuesto de las siguientes clases: Bosque, Monstruo, Mago, Hec
 classDiagram
     class Mago{
         <<class>>
-        int ID
-        String nombre
-        String vida
-        String mana
-        List<Hechizo> hechizos
-        lanzarHechizo(Monstruo)
-        lanzarHechizo(Monstruo, Hechizo)
+        -int ID
+        -String nombre
+        -String vida
+        -String mana
+        -List<Hechizo> hechizos
+        +lanzarHechizo(Monstruo)
+        +lanzarHechizo(Monstruo, Hechizo)
     }
     class Hechizo {
         <<class>>
-        int ID
-        String nombre
-        Efecto efecto
-        aplicarEfecto(Monstruo monstruo)
+        -int ID
+        -String nombre
+        -Efecto efecto
+        +aplicarEfecto(Monstruo monstruo)
     }
     class Monstruo{
         <<class>>
-        int ID
-        String nombre
-        Integer vida
-        Integer fuerza
-        Tipo tipo
-        Rareza rareza
-        Estado estado
-        atacarMago(Mago mago)
-        compararMonstruo(Monstruo other)
+        -int ID
+        -String nombre
+        -Integer vida
+        -Integer fuerza
+        -Tipo tipo
+        -Rareza rareza
+        -Estado estado
+        +atacarMago(Mago mago)
+        +compararMonstruo(Monstruo other)
     }
     class Dragon{
         <<class>>
-        Integer ID
-        String nombre
-        Integer intensidadFuego
-        Integer resistencia
+        -Integer ID
+        -String nombre
+        -Integer intensidadFuego
+        -Integer resistencia
+        +exhalar(Monstruo)
+        +exhalar(Mago)
     }
     class Bosque{
         <<class>>
-        Integer id
-        String nombre
-        Integer nivelPeligro
-        Monstruo monstruoJefe
-        ArrayList<Monstruo> listaMonstruos
-        mostrarJefe()
-        cambiarJefe(Monstruo nuevoJefe)
-        engadirMonstruo(Monstruo nuevoMonstruo)
+        -Integer id
+        -String nombre
+        -Integer nivelPeligro
+        -Monstruo monstruoJefe
+        -ArrayList<Monstruo> listaMonstruos
+        +mostrarJefe()
+        +cambiarJefe(Monstruo nuevoJefe)
+        +engadirMonstruo(Monstruo nuevoMonstruo)
     }
     class Tipo{
         <<enumeration>>
@@ -131,18 +133,18 @@ El juego esta diseñado de la siguiente forma:
 
 ```mermaid
 erDiagram
-    Monstruo ||--|| Bosque : tiene
+    Monstruo }|--|| Bosque : tiene
     Mago ||--|| Monstruo : lanzaHechizo
     Mago ||--|| Monstruo : lanzaHechizoEspecial
     Monstruo ||--|| Mago : ataca
-    Hechizo ||--|| Mago : usaHechizo
+    Hechizo }|--|{ Mago : tieneHechizo
     Dragon ||--|| Mago: exhala
     Dragon ||--|| Monstruo: exhala
     Dragon ||--|| Bosque: pertenece
   
 
     Mago {
-        int ID
+        int ID PK
         String nombre
         String vida
         String mana
@@ -150,13 +152,13 @@ erDiagram
     }
 
     Hechizo {
-        Integer id
+        Integer id PK
         String nombre
         Efecto efecto
     }
 
     Monstruo {
-        int ID
+        int ID PK
         String nombre
         Integer vida
         Integer fuerza
@@ -166,18 +168,18 @@ erDiagram
     }
 
     Dragon {
-        Integer id
+        Integer id PK
         String nombre
         Integer intensidadFuego
         Integer resistencia
     }
 
     Bosque {
-        Integer id
+        Integer id PK
         String nombre
         Integer nivelPeligro
-        Monstruo monstruoJefe
         List Monstruo
-        Dragon dragon
+        Monstruo monstruoJefe FK
+        Dragon dragon FK
     }
 ```
