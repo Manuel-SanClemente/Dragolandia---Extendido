@@ -59,4 +59,12 @@ public class Dragon {
     public void exhalar(Monstruo monstruo) {
         monstruo.setVida(monstruo.getVida() - intensidadFuego);        
     }
+
+    /**
+     * El dragón exhala fuego, que, usando el valor de intensidadFuego, resta la vida a un mago
+     * @param mago el mago que esta siendo quemado/atacado
+     */
+    public void exhalar(Mago mago) {
+        mago.setVida(mago.getVida() - intensidadFuego);        
+    }
 }

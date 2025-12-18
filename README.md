@@ -1,4 +1,4 @@
-# DRAGOLANDIA - VERSIÓN 1
+# DRAGOLANDIA - VERSIÓN 2
 
 #### Autor: Manuel Dono Araújo
 
@@ -10,7 +10,7 @@ El jugador debera determinar sus estadisticas antes de adentrarse en el bosque, 
 
 Un mago tiene acceso a una lista de hechizos, los cuales puede usar para atacar a un monstruo. Al atacar al monstruo con uno de esos hechizos (asignados aleatoriamente), se le pasara un efecto especifico al monstruo.
 
-Existe un dragón que solo puede habitar en un bosque.
+Existe un dragón que solo puede habitar en un bosque. Este puede exhalar fuego.
 
 ## ANALISIS
 
@@ -115,9 +115,17 @@ classDiagram
 
 ## DISEÑO
 
-Un bosque alberga una lista de monstruos, y de ellos se establece un monstruo jefe. En ese bosque, un mago entra. El mago lucha con los monstruos del bosque.
+El juego esta diseñado de la siguiente forma:
 
-Un monstruo puede ser de un tipo y rareza especificos.
+- Un bosque alberga una lista de monstruos, y de ellos se establece un monstruo jefe. 
+
+- En ese bosque, un mago entra. El mago lucha con los monstruos del bosque. 
+
+- En un bosque, también habita un dragón. Un dragón podra atacar a un monstruo o mago con su aliento de fuego.
+
+- Un monstruo puede ser de un tipo y rareza especificos, y puede tener uno o varios efectos.
+
+- Un mago tiene una serie de hechizos. Con ellos, puede utilizarlos para aplicar efectos al monstruo que este atacando.
 
 #### DIAGRAMA ENTIDAD-RELACIÓN
 
@@ -125,7 +133,12 @@ Un monstruo puede ser de un tipo y rareza especificos.
 erDiagram
     Monstruo ||--|| Bosque : tiene
     Mago ||--|| Monstruo : lanzaHechizo
+    Mago ||--|| Monstruo : lanzaHechizoEspecial
     Monstruo ||--|| Mago : ataca
+    Hechizo ||--|| Mago : usaHechizo
+    Dragon ||--|| Mago: exhala
+    Dragon ||--|| Monstruo: exhala
+    Dragon ||--|| Bosque: pertenece
   
 
     Mago {
@@ -133,19 +146,38 @@ erDiagram
         String nombre
         String vida
         String mana
+        List hechizos
     }
+
+    Hechizo {
+        Integer id
+        String nombre
+        Efecto efecto
+    }
+
     Monstruo {
         int ID
         String nombre
         Integer vida
-        tipo tipo
         Integer fuerza
-        rareza rareza
+        Tipo tipo
+        Rareza rareza
+        Estado estado
     }
+
+    Dragon {
+        Integer id
+        String nombre
+        Integer intensidadFuego
+        Integer resistencia
+    }
+
     Bosque {
         Integer id
         String nombre
         Integer nivelPeligro
         Monstruo monstruoJefe
+        List Monstruo
+        Dragon dragon
     }
 ```
