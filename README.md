@@ -41,6 +41,7 @@ classDiagram
         -int ID
         -String nombre
         -Efecto efecto
+        -Mago mago
         +aplicarEfecto(Monstruo monstruo)
     }
     class Monstruo{
@@ -111,6 +112,12 @@ classDiagram
     Monstruo --> Rareza
     Monstruo --> Estado
     Hechizo --> Efecto
+    Mago <--> Hechizo
+    Mago --> Monstruo
+    Mago <-- Monstruo
+    Bosque --> Monstruo
+    Dragon --> Monstruo
+    Dragon --> Mago
 
 
 ```
@@ -155,6 +162,7 @@ erDiagram
         Integer id PK
         String nombre
         Efecto efecto
+        Mago mago FK
     }
 
     Monstruo {
