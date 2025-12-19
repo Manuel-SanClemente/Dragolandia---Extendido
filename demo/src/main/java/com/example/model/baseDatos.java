@@ -8,8 +8,18 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 public class baseDatos {
+    SessionFactory factory;
 
-    public baseDatos() {}
+    public baseDatos() {
+        System.out.println("\nIniciando conexión con Base de datos \n");
+
+        // Se obtiene la configuración de la conexión con hibernate
+        Configuration config = new Configuration();
+        config.configure("hibernate.cfg.xml");
+
+        // Se construye la conexion con la Base de Datos
+        this.factory = config.buildSessionFactory();
+    }
 
     /**
      * Se añaden los parametros (que representan diferentes entidades) a la Base de Datos por Hibernate
@@ -20,14 +30,6 @@ public class baseDatos {
      * @param dragon un dragón, con todos sus atributos
      */
     public void engadirEstructura(Mago mago, Bosque bosque, Monstruo monstruo, List<Hechizo> hechizos, Dragon dragon){
-        System.out.println("\nIniciando conexión con Base de datos \n");
-
-        // Se obtiene la configuración de la conexión con hibernate
-        Configuration config = new Configuration();
-        config.configure("hibernate.cfg.xml");
-
-        // Se construye la conexion con la Base de Datos
-        SessionFactory factory = config.buildSessionFactory();
 
         // Se abre la conexión y se hace una transacción con las clases.
         Session session = factory.openSession();
