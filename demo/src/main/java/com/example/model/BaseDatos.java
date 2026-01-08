@@ -6,7 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-
 /**
  * Clase encargada de la conexión a la base de datos. 
  * Aplica el patrón Singleton, que hace que solo se acceda a una instancia de la misma.
@@ -45,15 +44,9 @@ public class BaseDatos {
         return instancia;
     }
 
-
-
-
-
     /**
      * OPERACIONES DE CREACÍON
      */
-
-
 
     public void engadirMago(Mago mago){
 
@@ -142,11 +135,9 @@ public class BaseDatos {
 
     }
 
-
     /**
      * OPERACIONES DE BORRADO
      */
-
 
     public void borrarMago(Mago mago){
 
@@ -216,11 +207,9 @@ public class BaseDatos {
 
     }
 
-
     /**
      * OPERACIONES DE MODIFICACIÓN
      */
-
 
     public void modificarMago(Mago mago){
 
@@ -228,7 +217,13 @@ public class BaseDatos {
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
 
-        session.remove(mago);
+        Mago m = session.find(mago.getClass(), mago.getId());
+        m.setHechizos(mago.getHechizos());
+        m.setMana(mago.getMana());
+        m.setNombre(mago.getNombre());
+        m.setVida(mago.getVida());
+
+        session.merge(m);
 
         // Se mandan las clases y se cierra la conexión
         tx.commit();
@@ -241,7 +236,12 @@ public class BaseDatos {
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
 
-        session.remove(hechizo);
+        Hechizo h = session.find(hechizo.getClass(), hechizo.getId());
+        h.setEfecto(hechizo.getEfecto());
+        h.setMago(hechizo.getMago());
+        h.setNombre(hechizo.getNombre());
+
+        session.merge(h);
 
         // Se mandan las clases y se cierra la conexión
         tx.commit();
@@ -254,7 +254,16 @@ public class BaseDatos {
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
 
-        session.remove(monstruo);
+        Monstruo m = session.find(monstruo.getClass(), monstruo.getId());
+        m.setBosque(monstruo.getBosque());
+        m.setEstado(monstruo.getEstado());
+        m.setFuerza(monstruo.getFuerza());
+        m.setNombre(monstruo.getNombre());
+        m.setRareza(monstruo.getRareza());
+        m.setTipo(monstruo.getTipo());
+        m.setVida(monstruo.getVida());
+
+        session.merge(m);
 
         // Se mandan las clases y se cierra la conexión
         tx.commit();
@@ -268,7 +277,12 @@ public class BaseDatos {
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
 
-        session.remove(dragon);
+        Dragon d = session.find(dragon.getClass(), dragon.getId());
+        d.setIntensidadFuego(dragon.getIntensidadFuego());
+        d.setNombre(dragon.getNombre());
+        d.setResistencia(dragon.getResistencia());
+
+        session.merge(d);
 
         // Se mandan las clases y se cierra la conexión
         tx.commit();
@@ -282,8 +296,15 @@ public class BaseDatos {
         Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
 
-        session.remove(bosque);
+        Bosque b = session.find(bosque.getClass(), bosque.getId());
+        b.setDragon(bosque.getDragon());
+        b.setListaMonstruos(bosque.getListaMonstruos());
+        b.setMonstruoJefe(bosque.getMonstruoJefe());
+        b.setNivelPeligro(bosque.getNivelPeligro());
+        b.setNombre(bosque.getNombre());
 
+        session.merge(b);
+        
         // Se mandan las clases y se cierra la conexión
         tx.commit();
         session.close();

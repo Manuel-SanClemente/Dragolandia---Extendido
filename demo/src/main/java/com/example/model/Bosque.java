@@ -75,7 +75,7 @@ public class Bosque {
         return listaMonstruos;
     }
 
-    public void setListaMonstruos(ArrayList<Monstruo> listaMonstruos) {
+    public void setListaMonstruos(List<Monstruo> listaMonstruos) {
         this.listaMonstruos = listaMonstruos;
     }
 
