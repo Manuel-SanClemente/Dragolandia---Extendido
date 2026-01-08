@@ -60,7 +60,30 @@ public class Juego {
      */
     public Bosque nuevoBosque(ArrayList<Monstruo> listaMonstruos, Dragon dragon) {
         Bosque nuevoBosque = new Bosque();
-        nuevoBosque.setNombre("Bosque #"+nuevoBosque.getId());
+        Random random = new Random();
+
+        String nombreBosque = "";
+        Integer tipoId = random.nextInt(1, 5);
+
+        switch (tipoId) {
+            case 1:
+                nombreBosque = "Misterioso";
+                break;
+            case 2:
+                nombreBosque = "Encantado";
+                break;
+            case 3:
+                nombreBosque = "Peligroso";
+                break;
+            case 4:
+                nombreBosque = "Embrujado";
+                break;
+            case 5:
+                nombreBosque = "Fantasmagorico";
+                break;
+        }
+
+        nuevoBosque.setNombre("Bosque "+nombreBosque);
         nuevoBosque.setListaMonstruos(listaMonstruos);
         nuevoBosque.setDragon(dragon);
         definirJefe(nuevoBosque, listaMonstruos);

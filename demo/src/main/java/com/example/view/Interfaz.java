@@ -2,17 +2,17 @@ package com.example.view;
 
 import java.util.Scanner;
 
-import com.example.model.Bosque;
-import com.example.model.Juego;
-import com.example.model.Mago;
-import com.example.model.Monstruo;
+import com.example.model.*;
 
 public class Interfaz {
     private Mago mago;
     private Bosque bosque;
     private Monstruo monstruoJefe;
+    private BaseDatos bd;
 
-    public Interfaz(){}
+    public Interfaz(){
+        bd = BaseDatos.getInstancia();
+    }
 
     public Mago getMago() {
         return mago;
@@ -38,7 +38,7 @@ public class Interfaz {
         this.monstruoJefe = monstruoJefe;
     }
 
-    public void probar(Juego juego){
+    public void comenzar(Juego juego){
         System.out.println("A continuación, escribe los datos de tu mago.\n");
 
         Scanner sc = new Scanner(System.in);
@@ -58,10 +58,7 @@ public class Interfaz {
         this.monstruoJefe = bosque.getMonstruoJefe();
         this.mago = juego.nuevoMago(nombre, vida, mana);
 
-        System.out.println("Bosque, Monstruo jefe y Mago: ");
-        
-        System.out.println(bosque);
-        System.out.println(bosque.getMonstruoJefe());
-        System.out.println(mago);
+        bd.engadirMago(mago);
+        bd.engadirBosque(bosque);
     }
 }
