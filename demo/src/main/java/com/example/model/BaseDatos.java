@@ -2,42 +2,18 @@ package com.example.model;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
-/**
- * Clase encargada de la conexión a la base de datos. 
- * Aplica el patrón Singleton, que hace que solo se acceda a una instancia de la misma.
- * Como atributos, tiene lo siguiente:
- * instancia: refleja la instancia de la BD a la que se va a acceder
- * factory: metodo de hibernate para crear la clase encargada de ejecutar las sentencias SQL pertinentes. 
- */
 
 public class BaseDatos {
     private static BaseDatos instancia;
-    private SessionFactory factory;
 
-    /**
-     * Constructor de la clase. Crea la SessionFactory accediendo a la configuración de hibernate.
-     * Es privado, por lo que no se podra acceder directamente a la clase.
-     */
     private BaseDatos() {
         System.out.println("\nIniciando conexión con Base de datos \n");
-
-        // Se obtiene la configuración de la conexión con hibernate
-        Configuration config = new Configuration();
-        config.configure("hibernate.cfg.xml");
-
-        // Se construye la conexion con la Base de Datos
-        this.factory = config.buildSessionFactory();
     }
 
-    /**
-     * Devuelve una instancia de la Base de Datos para poder acceder a ella y realizar las consultas SQL que necesitemos
-     * @return la instancia de la Base de Datos
-     */
     public static BaseDatos getInstancia() {
         if (instancia == null) {
             instancia = new BaseDatos();            
@@ -50,74 +26,55 @@ public class BaseDatos {
      */
 
     public void engadirMago(Mago mago){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
+        EntityManager em = emf.createEntityManager();
 
-        // Se abre la conexión y se hace una transacción con las clases.
-        Session session = factory.openSession();
-        Transaction tx = session.beginTransaction();
-
-        // Se obtiene la lista de hechizos del mago, se añaden a la Base de Datos
         List<Hechizo> hechizos = mago.getHechizos();
         for (Hechizo hechizo : hechizos) {
             engadirHechizo(hechizo);
         }
 
-        // Se añaden el mago, monstruo
-        session.persist(mago);
-
-        // Se mandan las clases y se cierra la conexión
-        tx.commit();
-        session.close();
+        em.getTransaction().begin();
+        em.persist(mago);
+        em.getTransaction().commit();
+        em.close();
     }
 
     public void engadirHechizo(Hechizo hechizo){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
+        EntityManager em = emf.createEntityManager();
 
-        // Se abre la conexión y se hace una transacción con las clases.
-        Session session = factory.openSession();
-        Transaction tx = session.beginTransaction();
-
-        // Se añaden el mago, monstruo
-        session.persist(hechizo);
-
-        // Se mandan las clases y se cierra la conexión
-        tx.commit();
-        session.close();
+        em.getTransaction().begin();
+        em.persist(hechizo);
+        em.getTransaction().commit();
+        em.close();
     }
 
     public void engadirMonstruo(Monstruo monstruo) {
-
-        // Se abre la conexión y se hace una transacción con las clases.
-        Session session = factory.openSession();
-        Transaction tx = session.beginTransaction();
-
-        // Se añaden el mago, monstruo
-        session.persist(monstruo);
-
-        // Se mandan las clases y se cierra la conexión
-        tx.commit();
-        session.close();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
+        EntityManager em = emf.createEntityManager();
+        
+        em.getTransaction().begin();
+        em.persist(monstruo);
+        em.getTransaction().commit();
+        em.close();
 
     }
 
     public void engadirDragon(Dragon dragon) {
-
-        // Se abre la conexión y se hace una transacción con las clases.
-        Session session = factory.openSession();
-        Transaction tx = session.beginTransaction();
-
-        // Se añaden el mago, monstruo
-        session.persist(dragon);
-
-        // Se mandan las clases y se cierra la conexión
-        tx.commit();
-        session.close();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
+        EntityManager em = emf.createEntityManager();
+        
+        em.getTransaction().begin();
+        em.persist(dragon);
+        em.getTransaction().commit();
+        em.close();
 
     }
 
     public void engadirBosque(Bosque bosque) {
-
-        // Se abre la conexión y se hace una transacción con las clases.
-        Session session = factory.openSession();
-        Transaction tx = session.beginTransaction();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
+        EntityManager em = emf.createEntityManager();
 
         List<Monstruo> monstruos = bosque.getListaMonstruos();
         Dragon dragon = bosque.getDragon();
@@ -127,13 +84,11 @@ public class BaseDatos {
         }
 
         engadirDragon(dragon);
-
-        session.persist(bosque);
-
-        // Se mandan las clases y se cierra la conexión
-        tx.commit();
-        session.close();
-
+        
+        em.getTransaction().begin();
+        em.persist(bosque);
+        em.getTransaction().commit();
+        em.close();
     }
 
     /**
@@ -141,70 +96,55 @@ public class BaseDatos {
      */
 
     public void borrarMago(Mago mago){
-
-        // Se abre la conexión y se hace una transacción con las clases.
-        Session session = factory.openSession();
-        Transaction tx = session.beginTransaction();
-
-        session.remove(mago);
-
-        // Se mandan las clases y se cierra la conexión
-        tx.commit();
-        session.close();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
+        EntityManager em = emf.createEntityManager();
+        
+        em.getTransaction().begin();
+        em.remove(mago);
+        em.getTransaction().commit();
+        em.close();
     }
 
     public void borrarHechizo(Hechizo hechizo){
-
-        // Se abre la conexión y se hace una transacción con las clases.
-        Session session = factory.openSession();
-        Transaction tx = session.beginTransaction();
-
-        session.remove(hechizo);
-
-        // Se mandan las clases y se cierra la conexión
-        tx.commit();
-        session.close();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
+        EntityManager em = emf.createEntityManager();
+        
+        em.getTransaction().begin();
+        em.remove(hechizo);
+        em.getTransaction().commit();
+        em.close();
     }
 
     public void borrarMonstruo(Monstruo monstruo) {
-
-        // Se abre la conexión y se hace una transacción con las clases.
-        Session session = factory.openSession();
-        Transaction tx = session.beginTransaction();
-
-        session.remove(monstruo);
-
-        // Se mandan las clases y se cierra la conexión
-        tx.commit();
-        session.close();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
+        EntityManager em = emf.createEntityManager();
+        
+        em.getTransaction().begin();
+        em.remove(monstruo);
+        em.getTransaction().commit();
+        em.close();
 
     }
 
     public void borrarDragon(Dragon dragon) {
-
-        // Se abre la conexión y se hace una transacción con las clases.
-        Session session = factory.openSession();
-        Transaction tx = session.beginTransaction();
-
-        session.remove(dragon);
-
-        // Se mandan las clases y se cierra la conexión
-        tx.commit();
-        session.close();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
+        EntityManager em = emf.createEntityManager();
+        
+        em.getTransaction().begin();
+        em.remove(dragon);
+        em.getTransaction().commit();
+        em.close();
 
     }
 
     public void borrarBosque(Bosque bosque) {
-
-        // Se abre la conexión y se hace una transacción con las clases.
-        Session session = factory.openSession();
-        Transaction tx = session.beginTransaction();
-
-        session.remove(bosque);
-
-        // Se mandan las clases y se cierra la conexión
-        tx.commit();
-        session.close();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
+        EntityManager em = emf.createEntityManager();
+        
+        em.getTransaction().begin();
+        em.remove(bosque);
+        em.getTransaction().commit();
+        em.close();
 
     }
 
@@ -213,49 +153,41 @@ public class BaseDatos {
      */
 
     public void modificarMago(Mago mago){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
+        EntityManager em = emf.createEntityManager();
 
-        // Se abre la conexión y se hace una transacción con las clases.
-        Session session = factory.openSession();
-        Transaction tx = session.beginTransaction();
-
-        Mago m = session.find(mago.getClass(), mago.getId());
+        Mago m = em.find(mago.getClass(), mago.getId());
         m.setHechizos(mago.getHechizos());
         m.setMana(mago.getMana());
         m.setNombre(mago.getNombre());
         m.setVida(mago.getVida());
 
-        session.merge(m);
-
-        // Se mandan las clases y se cierra la conexión
-        tx.commit();
-        session.close();
+        em.getTransaction().begin();
+        em.merge(m);
+        em.getTransaction().commit();
+        em.close();
     }
 
     public void modificarHechizo(Hechizo hechizo){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
+        EntityManager em = emf.createEntityManager();
 
-        // Se abre la conexión y se hace una transacción con las clases.
-        Session session = factory.openSession();
-        Transaction tx = session.beginTransaction();
-
-        Hechizo h = session.find(hechizo.getClass(), hechizo.getId());
+        Hechizo h = em.find(hechizo.getClass(), hechizo.getId());
         h.setEfecto(hechizo.getEfecto());
         h.setMago(hechizo.getMago());
         h.setNombre(hechizo.getNombre());
 
-        session.merge(h);
-
-        // Se mandan las clases y se cierra la conexión
-        tx.commit();
-        session.close();
+        em.getTransaction().begin();
+        em.merge(h);
+        em.getTransaction().commit();
+        em.close();
     }
 
     public void modificarMonstruo(Monstruo monstruo) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
+        EntityManager em = emf.createEntityManager();
 
-        // Se abre la conexión y se hace una transacción con las clases.
-        Session session = factory.openSession();
-        Transaction tx = session.beginTransaction();
-
-        Monstruo m = session.find(monstruo.getClass(), monstruo.getId());
+        Monstruo m = em.find(monstruo.getClass(), monstruo.getId());
         m.setBosque(monstruo.getBosque());
         m.setEstado(monstruo.getEstado());
         m.setFuerza(monstruo.getFuerza());
@@ -264,51 +196,44 @@ public class BaseDatos {
         m.setTipo(monstruo.getTipo());
         m.setVida(monstruo.getVida());
 
-        session.merge(m);
-
-        // Se mandan las clases y se cierra la conexión
-        tx.commit();
-        session.close();
+        em.getTransaction().begin();
+        em.merge(m);
+        em.getTransaction().commit();
+        em.close();
 
     }
 
     public void modificarDragon(Dragon dragon) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
+        EntityManager em = emf.createEntityManager();
 
-        // Se abre la conexión y se hace una transacción con las clases.
-        Session session = factory.openSession();
-        Transaction tx = session.beginTransaction();
-
-        Dragon d = session.find(dragon.getClass(), dragon.getId());
+        Dragon d = em.find(dragon.getClass(), dragon.getId());
         d.setIntensidadFuego(dragon.getIntensidadFuego());
         d.setNombre(dragon.getNombre());
         d.setResistencia(dragon.getResistencia());
 
-        session.merge(d);
-
-        // Se mandan las clases y se cierra la conexión
-        tx.commit();
-        session.close();
+        em.getTransaction().begin();
+        em.merge(d);
+        em.getTransaction().commit();
+        em.close();
 
     }
 
     public void modificarBosque(Bosque bosque) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
+        EntityManager em = emf.createEntityManager();
 
-        // Se abre la conexión y se hace una transacción con las clases.
-        Session session = factory.openSession();
-        Transaction tx = session.beginTransaction();
-
-        Bosque b = session.find(bosque.getClass(), bosque.getId());
+        Bosque b = em.find(bosque.getClass(), bosque.getId());
         b.setDragon(bosque.getDragon());
         b.setListaMonstruos(bosque.getListaMonstruos());
         b.setMonstruoJefe(bosque.getMonstruoJefe());
         b.setNivelPeligro(bosque.getNivelPeligro());
         b.setNombre(bosque.getNombre());
 
-        session.merge(b);
-        
-        // Se mandan las clases y se cierra la conexión
-        tx.commit();
-        session.close();
+        em.getTransaction().begin();
+        em.merge(b);
+        em.getTransaction().commit();
+        em.close();
 
     }
 }
