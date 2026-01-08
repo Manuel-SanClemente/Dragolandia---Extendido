@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+
 /**
  * Clase encargada de la conexión a la base de datos. 
  * Aplica el patrón Singleton, que hace que solo se acceda a una instancia de la misma.
