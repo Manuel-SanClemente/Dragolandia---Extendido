@@ -114,8 +114,5 @@ public class Bosque {
         return "Bosque [id=" + id + ", nombre=" + nombre + ", nivelPeligro=" + nivelPeligro + ", monstruoJefe="
                 + monstruoJefe + ", listaMonstruos=" + listaMonstruos + ", dragon=" + dragon + "]";
     }
-
-    
-
     
 }
