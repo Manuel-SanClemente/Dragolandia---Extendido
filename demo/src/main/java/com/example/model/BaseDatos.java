@@ -68,6 +68,15 @@ public class BaseDatos {
 
     public void engadirBosque(Bosque bosque) {
         EntityManager em = HibernateUtil.getEntityManager();
+        
+        em.getTransaction().begin();
+        em.persist(bosque);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public void engadirBosqueYDemas(Bosque bosque) {
+        EntityManager em = HibernateUtil.getEntityManager();
 
         List<Monstruo> monstruos = bosque.getListaMonstruos();
         Dragon dragon = bosque.getDragon();

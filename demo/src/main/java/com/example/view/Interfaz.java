@@ -5,39 +5,12 @@ import java.util.Scanner;
 import com.example.model.*;
 
 public class Interfaz {
-    private Mago mago;
-    private Bosque bosque;
-    private Monstruo monstruoJefe;
     private BaseDatos bd;
     private Juego juego;
 
     public Interfaz(){
         bd = BaseDatos.getInstancia();
         juego = new Juego();
-    }
-
-    public Mago getMago() {
-        return mago;
-    }
-
-    public void setMago(Mago mago) {
-        this.mago = mago;
-    }
-
-    public Bosque getBosque() {
-        return bosque;
-    }
-
-    public void setBosque(Bosque bosque) {
-        this.bosque = bosque;
-    }
-
-    public Monstruo getMonstruoJefe() {
-        return monstruoJefe;
-    }
-
-    public void setMonstruoJefe(Monstruo monstruoJefe) {
-        this.monstruoJefe = monstruoJefe;
     }
 
     public void comenzar(){
@@ -56,11 +29,10 @@ public class Interfaz {
 
         sc.close();
 
-        this.bosque = juego.generarEstructuras();
-        this.monstruoJefe = bosque.getMonstruoJefe();
-        this.mago = juego.nuevoMago(nombre, vida, mana);
+        Bosque bosque = juego.generarEstructuras();
+        Mago mago = juego.nuevoMago(nombre, vida, mana);
 
         bd.engadirMago(mago);
-        bd.engadirBosque(bosque);
+        bd.engadirBosqueYDemas(bosque);
     }
 }
