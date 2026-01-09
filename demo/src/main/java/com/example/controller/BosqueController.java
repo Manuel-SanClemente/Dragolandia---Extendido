@@ -5,13 +5,19 @@ import com.example.model.HibernateUtil;
 
 import jakarta.persistence.EntityManager;
 
+/**
+ * Controlador de la clase Bosque. Aplica el formato Singleton 
+ */
+
 public class BosqueController {
     private static BosqueController instancia;
 
-    private BosqueController() {
-        System.out.println("\nControlador de Bosque inicializado\n");
-    }
+    private BosqueController() {}
 
+    /**
+     * Devuelve la instancia del controlador
+     * @return la instancia de la clase
+     */
     public static BosqueController getInstancia() {
         if (instancia == null) {
             instancia = new BosqueController();
@@ -19,6 +25,10 @@ public class BosqueController {
         return instancia;
     }
 
+    /**
+     * Añade la clase a la base de datos
+     * @param bosque
+     */
     public void engadirBosque(Bosque bosque) {
         EntityManager em = HibernateUtil.getEntityManager();
 
@@ -32,6 +42,10 @@ public class BosqueController {
         }
     }
 
+    /**
+     * Busca y, si la encuentra, imprime la entidad correspondiente de la base de datos
+     * @param bosque
+     */
     public void buscarBosque(Bosque bosque) {
         EntityManager em = HibernateUtil.getEntityManager();
 
@@ -44,6 +58,10 @@ public class BosqueController {
         }
     }
 
+    /**
+     * Borra la entidad correspondiente
+     * @param bosque
+     */
     public void borrarBosque(Bosque bosque) {
         EntityManager em = HibernateUtil.getEntityManager();
 
@@ -58,6 +76,13 @@ public class BosqueController {
 
     }
 
+    /**
+     * Modifica la entidad con los datos de la otra clase.
+     * Se le deberan pasar dos datos a la Base de Datos: la entidad original, más la versión modificada de la misma.
+     * Con ambas, se aplican las modificaciones de la modificada a la original, y las unimos en la BD
+     * @param bosque la versión original de la entidad
+     * @param b la versión modificada de la entidad
+     */
     public void modificarBosque(Bosque bosque, Bosque b) {
         EntityManager em = HibernateUtil.getEntityManager();
 

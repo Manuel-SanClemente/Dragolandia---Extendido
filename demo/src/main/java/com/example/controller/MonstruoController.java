@@ -5,6 +5,9 @@ import com.example.model.Monstruo;
 
 import jakarta.persistence.EntityManager;
 
+/**
+ * Controlador de la clase Monstruo. Aplica el formato Singleton
+ */
 public class MonstruoController {
     private static MonstruoController instancia;
 
@@ -12,6 +15,10 @@ public class MonstruoController {
         System.out.println("\nControlador de Monstruo inicializado\n");
     }
 
+    /**
+     * Devuelve la instancia del controlador
+     * @return la instancia de la clase
+     */
     public static MonstruoController getInstancia() {
         if (instancia == null) {
             instancia = new MonstruoController();
@@ -19,6 +26,10 @@ public class MonstruoController {
         return instancia;
     }
 
+    /**
+     * Añade la clase a la base de datos
+     * @param monstruo
+     */
     public void engadirMonstruo(Monstruo monstruo) {
         EntityManager em = HibernateUtil.getEntityManager();
         try {
@@ -31,6 +42,10 @@ public class MonstruoController {
         }
     }
 
+    /**
+     * Busca y, si la encuentra, imprime la entidad correspondiente de la base de datos
+     * @param monstruo
+     */
     public void buscarMonstruo(Monstruo monstruo) {
         EntityManager em = HibernateUtil.getEntityManager();
 
@@ -43,6 +58,10 @@ public class MonstruoController {
         }
     }
 
+    /**
+     * Borra la entidad correspondiente
+     * @param monstruo
+     */
     public void borrarMonstruo(Monstruo monstruo) {
         EntityManager em = HibernateUtil.getEntityManager();
 
@@ -57,6 +76,13 @@ public class MonstruoController {
 
     }
 
+    /**
+     * Modifica la entidad con los datos de la otra clase.
+     * Se le deberan pasar dos datos a la Base de Datos: la entidad original, más la versión modificada de la misma.
+     * Con ambas, se aplican las modificaciones de la modificada a la original, y las unimos en la BD
+     * @param monstruo
+     * @param m
+     */
     public void modificarMonstruo(Monstruo monstruo, Monstruo m) {
         EntityManager em = HibernateUtil.getEntityManager();
 

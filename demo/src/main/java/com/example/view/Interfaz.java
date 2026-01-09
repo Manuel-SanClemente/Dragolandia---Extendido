@@ -1,9 +1,11 @@
 package com.example.view;
 
 import java.util.Scanner;
-
 import com.example.model.*;
 
+/**
+ * Clase para encargarse de la interacción y inicialización del juego.
+ */
 public class Interfaz {
     private BaseDatos bd;
     private Juego juego;
@@ -13,6 +15,10 @@ public class Interfaz {
         juego = new Juego();
     }
 
+    /**
+     * Metodo comenzar. Esta clase genera las estructuras necesarias para el juego, a la vez que le pide al usuario que cree a su mago.
+     * Una vez creadas, se añaden a la Base de Datos
+     */
     public void comenzar(){
         System.out.println("A continuación, escribe los datos de tu mago.\n");
 
@@ -34,5 +40,39 @@ public class Interfaz {
 
         bd.engadirMagoYHechizos(mago);
         bd.engadirBosqueYDemas(bosque);
+        jugar(mago, bosque);
+    }
+
+    /**
+     * Metodo jugar. Esta clase se encarga del manejo del juego.
+     * En ella, el mago y el monstruo jefe se atacan por turnos hasta que caiga uno.
+     * Cuando uno de ellos caiga, se presentan los resultados y se borra al perdedor
+     * @param mago
+     * @param bosque
+     */
+    public void jugar(Mago mago, Bosque bosque){
+
+        Monstruo jefe = bosque.getMonstruoJefe();
+
+        System.out.println("Comienza la batalla! Te enfrentas a "+ jefe.getNombre());
+
+        while (mago.getVida() !=0 | jefe.getVida()!=0) {
+            mago.lanzarHechizo(jefe);
+            while (jefe.getVida()!=0) {
+                jefe.atacarMago(mago);                
+            }         
+        }
+
+        System.out.println("Ha acabado la partida");
+
+        if (mago.getVida() <=0) {
+            System.out.println("HAS PERDIDO");
+        }
+
+        if (jefe.getVida() <=0 ) {
+            System.out.println("HAS GANADO");
+        }
+        
+        bd.comprobarParticipantes(mago, jefe);
     }
 }
