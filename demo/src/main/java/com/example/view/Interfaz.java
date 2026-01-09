@@ -32,7 +32,7 @@ public class Interfaz {
         Bosque bosque = juego.generarEstructuras();
         Mago mago = juego.nuevoMago(nombre, vida, mana);
 
-        bd.engadirMago(mago);
+        bd.engadirMagoYHechizos(mago);
         bd.engadirBosqueYDemas(bosque);
     }
 }
