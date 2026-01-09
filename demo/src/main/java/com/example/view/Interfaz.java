@@ -17,7 +17,7 @@ public class Interfaz {
 
     /**
      * Metodo comenzar. Esta clase genera las estructuras necesarias para el juego, a la vez que le pide al usuario que cree a su mago.
-     * Una vez creadas, se añaden a la Base de Datos
+     * Una vez creadas, se añaden a la BD
      */
     public void comenzar(){
         System.out.println("A continuación, escribe los datos de tu mago.\n");
