@@ -68,10 +68,11 @@ public class Mago {
         this.hechizos = hechizos;
     }
 
+    
+
     @Override
     public String toString() {
-        return "Mago [id=" + id + ", nombre=" + nombre + ", vida=" + vida + ", mana=" + mana + ", hechizos=" + hechizos
-                + "]";
+        return "Mago= id:" + id + ", nombre:" + nombre + ", vida:" + vida + ", mana:" + mana + ", hechizos:" + hechizos;
     }
 
     /**

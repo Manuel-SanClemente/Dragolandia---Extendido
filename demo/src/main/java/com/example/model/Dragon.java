@@ -52,6 +52,12 @@ public class Dragon {
         this.resistencia = resistencia;
     }
 
+    @Override
+    public String toString() {
+        return "Dragon= id:" + id + ", nombre:" + nombre + ", intensidadFuego:" + intensidadFuego + ", resistencia:"
+                + resistencia;
+    }
+
     /**
      * El dragón exhala fuego, que, usando el valor de intensidadFuego, resta la vida a un monstruo
      * @param monstruo el monstruo que esta siendo quemado/atacado

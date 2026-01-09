@@ -111,8 +111,8 @@ public class Bosque {
 
     @Override
     public String toString() {
-        return "Bosque [id=" + id + ", nombre=" + nombre + ", nivelPeligro=" + nivelPeligro + ", monstruoJefe="
-                + monstruoJefe + ", listaMonstruos=" + listaMonstruos + ", dragon=" + dragon + "]";
+        return "Bosque= id:" + id + ", nombre:" + nombre + ", nivelPeligro:" + nivelPeligro + ", monstruoJefe:"
+                + monstruoJefe + ", listaMonstruos:" + listaMonstruos + ", dragon:" + dragon;
     }
     
 }

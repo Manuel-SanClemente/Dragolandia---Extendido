@@ -73,6 +73,11 @@ public class Hechizo {
         this.mago = mago;
     }
 
+    @Override
+    public String toString() {
+        return "Hechizo= id:" + id + ", nombre:" + nombre + ", efecto:" + efecto + ", mago:" + mago;
+    }
+
     /**
      * Para aplicar un efecto al monstruo. Esto se usa en conjunción al un ataque por el mago. 
      * Para cumplir esto, se busca el efecto del hechizo en si, y se aplica un equivalente al monstruo

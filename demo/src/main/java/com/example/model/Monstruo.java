@@ -132,8 +132,8 @@ public class Monstruo {
 
     @Override
     public String toString() {
-        return "Monstruo [id=" + id + ", nombre=" + nombre + ", vida=" + vida + ", fuerza=" + fuerza + ", estado="
-                + estado + ", tipo=" + tipo + ", rareza=" + rareza + ", bosque=" + bosque + "]";
+        return "Monstruo= id:" + id + ", nombre:" + nombre + ", vida:" + vida + ", fuerza:" + fuerza + ", estado:"
+                + estado + ", tipo:" + tipo + ", rareza:" + rareza + ", bosque:" + bosque;
     }
 
     /**
