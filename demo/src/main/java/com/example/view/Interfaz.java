@@ -9,9 +9,11 @@ public class Interfaz {
     private Bosque bosque;
     private Monstruo monstruoJefe;
     private BaseDatos bd;
+    private Juego juego;
 
     public Interfaz(){
         bd = BaseDatos.getInstancia();
+        juego = new Juego();
     }
 
     public Mago getMago() {
@@ -38,7 +40,7 @@ public class Interfaz {
         this.monstruoJefe = monstruoJefe;
     }
 
-    public void comenzar(Juego juego){
+    public void comenzar(){
         System.out.println("A continuación, escribe los datos de tu mago.\n");
 
         Scanner sc = new Scanner(System.in);
