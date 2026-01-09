@@ -3,8 +3,6 @@ package com.example.model;
 import java.util.List;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 
 
 public class BaseDatos {
@@ -26,8 +24,7 @@ public class BaseDatos {
      */
 
     public void engadirMago(Mago mago){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = HibernateUtil.getEntityManager();
 
         List<Hechizo> hechizos = mago.getHechizos();
         for (Hechizo hechizo : hechizos) {
@@ -41,8 +38,7 @@ public class BaseDatos {
     }
 
     public void engadirHechizo(Hechizo hechizo){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = HibernateUtil.getEntityManager();
 
         em.getTransaction().begin();
         em.persist(hechizo);
@@ -51,8 +47,7 @@ public class BaseDatos {
     }
 
     public void engadirMonstruo(Monstruo monstruo) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = HibernateUtil.getEntityManager();
         
         em.getTransaction().begin();
         em.persist(monstruo);
@@ -62,8 +57,7 @@ public class BaseDatos {
     }
 
     public void engadirDragon(Dragon dragon) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = HibernateUtil.getEntityManager();
         
         em.getTransaction().begin();
         em.persist(dragon);
@@ -73,8 +67,7 @@ public class BaseDatos {
     }
 
     public void engadirBosque(Bosque bosque) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = HibernateUtil.getEntityManager();
 
         List<Monstruo> monstruos = bosque.getListaMonstruos();
         Dragon dragon = bosque.getDragon();
@@ -96,8 +89,7 @@ public class BaseDatos {
      */
 
     public void borrarMago(Mago mago){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = HibernateUtil.getEntityManager();
         
         em.getTransaction().begin();
         em.remove(mago);
@@ -106,8 +98,7 @@ public class BaseDatos {
     }
 
     public void borrarHechizo(Hechizo hechizo){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = HibernateUtil.getEntityManager();
         
         em.getTransaction().begin();
         em.remove(hechizo);
@@ -116,8 +107,7 @@ public class BaseDatos {
     }
 
     public void borrarMonstruo(Monstruo monstruo) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = HibernateUtil.getEntityManager();
         
         em.getTransaction().begin();
         em.remove(monstruo);
@@ -127,8 +117,7 @@ public class BaseDatos {
     }
 
     public void borrarDragon(Dragon dragon) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = HibernateUtil.getEntityManager();
         
         em.getTransaction().begin();
         em.remove(dragon);
@@ -138,8 +127,7 @@ public class BaseDatos {
     }
 
     public void borrarBosque(Bosque bosque) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = HibernateUtil.getEntityManager();
         
         em.getTransaction().begin();
         em.remove(bosque);
@@ -153,8 +141,7 @@ public class BaseDatos {
      */
 
     public void modificarMago(Mago mago){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = HibernateUtil.getEntityManager();
 
         Mago m = em.find(mago.getClass(), mago.getId());
         m.setHechizos(mago.getHechizos());
@@ -169,8 +156,7 @@ public class BaseDatos {
     }
 
     public void modificarHechizo(Hechizo hechizo){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = HibernateUtil.getEntityManager();
 
         Hechizo h = em.find(hechizo.getClass(), hechizo.getId());
         h.setEfecto(hechizo.getEfecto());
@@ -184,8 +170,7 @@ public class BaseDatos {
     }
 
     public void modificarMonstruo(Monstruo monstruo) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = HibernateUtil.getEntityManager();
 
         Monstruo m = em.find(monstruo.getClass(), monstruo.getId());
         m.setBosque(monstruo.getBosque());
@@ -204,8 +189,7 @@ public class BaseDatos {
     }
 
     public void modificarDragon(Dragon dragon) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = HibernateUtil.getEntityManager();
 
         Dragon d = em.find(dragon.getClass(), dragon.getId());
         d.setIntensidadFuego(dragon.getIntensidadFuego());
@@ -220,8 +204,7 @@ public class BaseDatos {
     }
 
     public void modificarBosque(Bosque bosque) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dragolandiaServizo");
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = HibernateUtil.getEntityManager();
 
         Bosque b = em.find(bosque.getClass(), bosque.getId());
         b.setDragon(bosque.getDragon());
