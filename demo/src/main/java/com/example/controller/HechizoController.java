@@ -9,55 +9,69 @@ public class HechizoController {
     private static HechizoController instancia;
 
     private HechizoController() {
-        System.out.println("\nIniciando conexión con Base de datos \n");
+        System.out.println("\nControlador de Hechizo inicializado\n");
     }
 
     public static HechizoController getInstancia() {
         if (instancia == null) {
-            instancia = new HechizoController();            
+            instancia = new HechizoController();
         }
         return instancia;
     }
 
-    public void engadirHechizo(Hechizo hechizo){
+    public void engadirHechizo(Hechizo hechizo) {
         EntityManager em = HibernateUtil.getEntityManager();
 
-        em.getTransaction().begin();
-        em.persist(hechizo);
-        em.getTransaction().commit();
-        em.close();
+        try {
+            em.getTransaction().begin();
+            em.persist(hechizo);
+            em.getTransaction().commit();
+            em.close();
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+
     }
 
-    public void buscarHechizo(Hechizo hechizo){
+    public void buscarHechizo(Hechizo hechizo) {
         EntityManager em = HibernateUtil.getEntityManager();
-
-        Hechizo h = em.find(Hechizo.class, hechizo.getId());
-
-        System.out.println(h);
-
-        em.close();
+        try {
+            Hechizo h = em.find(Hechizo.class, hechizo.getId());
+            System.out.println(h);
+            em.close();
+        } catch (Exception e) {
+            System.err.println(e);
+        }
     }
 
-    public void borrarHechizo(Hechizo hechizo){
+    public void borrarHechizo(Hechizo hechizo) {
         EntityManager em = HibernateUtil.getEntityManager();
-        
-        em.getTransaction().begin();
-        em.remove(hechizo);
-        em.getTransaction().commit();
-        em.close();
+
+        try {
+            em.getTransaction().begin();
+            em.remove(hechizo);
+            em.getTransaction().commit();
+            em.close();
+        } catch (Exception e) {
+            System.err.println(e);
+        }
     }
 
-    public void modificarHechizo(Hechizo hechizo, Hechizo h){
+    public void modificarHechizo(Hechizo hechizo, Hechizo h) {
         EntityManager em = HibernateUtil.getEntityManager();
 
-        hechizo.setEfecto(h.getEfecto());
-        hechizo.setMago(h.getMago());
-        hechizo.setNombre(h.getNombre());
+        try {
+            hechizo.setEfecto(h.getEfecto());
+            hechizo.setMago(h.getMago());
+            hechizo.setNombre(h.getNombre());
 
-        em.getTransaction().begin();
-        em.merge(hechizo);
-        em.getTransaction().commit();
-        em.close();
+            em.getTransaction().begin();
+            em.merge(hechizo);
+            em.getTransaction().commit();
+            em.close();
+        } catch (Exception e) {
+            System.err.println(e);
+        }
     }
 
 }

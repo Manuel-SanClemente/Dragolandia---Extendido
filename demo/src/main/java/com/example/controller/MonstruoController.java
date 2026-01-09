@@ -9,61 +9,73 @@ public class MonstruoController {
     private static MonstruoController instancia;
 
     private MonstruoController() {
-        System.out.println("\nIniciando conexión con Base de datos \n");
+        System.out.println("\nControlador de Monstruo inicializado\n");
     }
 
     public static MonstruoController getInstancia() {
         if (instancia == null) {
-            instancia = new MonstruoController();            
+            instancia = new MonstruoController();
         }
         return instancia;
     }
 
     public void engadirMonstruo(Monstruo monstruo) {
         EntityManager em = HibernateUtil.getEntityManager();
-        
-        em.getTransaction().begin();
-        em.persist(monstruo);
-        em.getTransaction().commit();
-        em.close();
-
+        try {
+            em.getTransaction().begin();
+            em.persist(monstruo);
+            em.getTransaction().commit();
+            em.close();
+        } catch (Exception e) {
+            System.err.println(e);
+        }
     }
 
-    public void buscarMonstruo(Monstruo monstruo){
+    public void buscarMonstruo(Monstruo monstruo) {
         EntityManager em = HibernateUtil.getEntityManager();
 
-        Monstruo m = em.find(Monstruo.class, monstruo.getId());
-
-        System.out.println(m);
-
-        em.close();
+        try {
+            Monstruo m = em.find(Monstruo.class, monstruo.getId());
+            System.out.println(m);
+            em.close();
+        } catch (Exception e) {
+            System.err.println(e);
+        }
     }
 
     public void borrarMonstruo(Monstruo monstruo) {
         EntityManager em = HibernateUtil.getEntityManager();
-        
-        em.getTransaction().begin();
-        em.remove(monstruo);
-        em.getTransaction().commit();
-        em.close();
+
+        try {
+            em.getTransaction().begin();
+            em.remove(monstruo);
+            em.getTransaction().commit();
+            em.close();
+        } catch (Exception e) {
+            System.err.println(e);
+        }
 
     }
 
     public void modificarMonstruo(Monstruo monstruo, Monstruo m) {
         EntityManager em = HibernateUtil.getEntityManager();
 
-        monstruo.setBosque(m.getBosque());
-        monstruo.setEstado(m.getEstado());
-        monstruo.setFuerza(m.getFuerza());
-        monstruo.setNombre(m.getNombre());
-        monstruo.setRareza(m.getRareza());
-        monstruo.setTipo(m.getTipo());
-        monstruo.setVida(m.getVida());
+        try {
+            monstruo.setBosque(m.getBosque());
+            monstruo.setEstado(m.getEstado());
+            monstruo.setFuerza(m.getFuerza());
+            monstruo.setNombre(m.getNombre());
+            monstruo.setRareza(m.getRareza());
+            monstruo.setTipo(m.getTipo());
+            monstruo.setVida(m.getVida());
 
-        em.getTransaction().begin();
-        em.merge(monstruo);
-        em.getTransaction().commit();
-        em.close();
+            em.getTransaction().begin();
+            em.merge(monstruo);
+            em.getTransaction().commit();
+            em.close();
+        } catch (Exception e) {
+            System.err.println(e);
+        }
 
     }
 

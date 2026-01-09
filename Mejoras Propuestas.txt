@@ -1,0 +1,9 @@
+Propuestas de mejoras para DragoLandia
+
+-El usuario controla a un mago, por lo que debería controlarlo, así que solo tendriamos que generar un único mago hasta el final de la partida. Esto lo he puesto en mi código para que el usuario cree su mago, y lo use durante la partida.
+    -Teniendo esto en cuenta, habría que imponer unas restricciones al usuario para que no pueda poner atributos con valores negativos, caracteres extraños, etc.
+-Poner más hechizos además de los establecidos en el ejercicio. 
+-Que cada hechizo tenga un posible efecto sobre el enemigo que afecte su rendimiento en combate.
+    -Al implementar este sistema de efectos, que cada uno tenga un coste asociado
+-Implementar un sistema de turnos para el combate entre el monstruo y el mago.
+-Implementar aleatoriedad para no depender de que el usuario ponga todos los datos. Esto quiere decir generar monstruos/dragones/hechizos con valores aleatorios, y que las entidades con las que se relacionen reflejen dichos cambios.
