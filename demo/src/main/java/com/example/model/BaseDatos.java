@@ -85,6 +85,60 @@ public class BaseDatos {
     }
 
     /**
+     * OPERACIONES DE CONSULTA
+     */
+
+    public void buscarMago(Mago mago){
+        EntityManager em = HibernateUtil.getEntityManager();
+
+        Mago m = em.find(Mago.class, mago.getId());
+
+        System.out.println(m);
+
+        em.close();
+    }
+
+    public void buscarHechizo(Hechizo hechizo){
+        EntityManager em = HibernateUtil.getEntityManager();
+
+        Hechizo h = em.find(Hechizo.class, hechizo.getId());
+
+        System.out.println(h);
+
+        em.close();
+    }
+
+    public void buscarMonstruo(Monstruo monstruo){
+        EntityManager em = HibernateUtil.getEntityManager();
+
+        Monstruo m = em.find(Monstruo.class, monstruo.getId());
+
+        System.out.println(m);
+
+        em.close();
+    }
+
+    public void buscarDragon(Dragon dragon){
+        EntityManager em = HibernateUtil.getEntityManager();
+
+        Dragon d = em.find(Dragon.class, dragon.getId());
+
+        System.out.println(d);
+
+        em.close();
+    }
+
+    public void buscarBosque(Bosque bosque){
+        EntityManager em = HibernateUtil.getEntityManager();
+
+        Bosque b = em.find(Bosque.class, bosque.getId());
+
+        System.out.println(b);
+
+        em.close();
+    }
+
+    /**
      * OPERACIONES DE BORRADO
      */
 
@@ -140,81 +194,76 @@ public class BaseDatos {
      * OPERACIONES DE MODIFICACIÓN
      */
 
-    public void modificarMago(Mago mago){
+    public void modificarMago(Mago mago, Mago m){
         EntityManager em = HibernateUtil.getEntityManager();
 
-        Mago m = em.find(mago.getClass(), mago.getId());
-        m.setHechizos(mago.getHechizos());
-        m.setMana(mago.getMana());
-        m.setNombre(mago.getNombre());
-        m.setVida(mago.getVida());
+        mago.setHechizos(m.getHechizos());
+        mago.setMana(m.getMana());
+        mago.setNombre(m.getNombre());
+        mago.setVida(m.getVida());
 
         em.getTransaction().begin();
-        em.merge(m);
+        em.merge(mago);
         em.getTransaction().commit();
         em.close();
     }
 
-    public void modificarHechizo(Hechizo hechizo){
+    public void modificarHechizo(Hechizo hechizo, Hechizo h){
         EntityManager em = HibernateUtil.getEntityManager();
 
-        Hechizo h = em.find(hechizo.getClass(), hechizo.getId());
-        h.setEfecto(hechizo.getEfecto());
-        h.setMago(hechizo.getMago());
-        h.setNombre(hechizo.getNombre());
+        hechizo.setEfecto(h.getEfecto());
+        hechizo.setMago(h.getMago());
+        hechizo.setNombre(h.getNombre());
 
         em.getTransaction().begin();
-        em.merge(h);
+        em.merge(hechizo);
         em.getTransaction().commit();
         em.close();
     }
 
-    public void modificarMonstruo(Monstruo monstruo) {
+    public void modificarMonstruo(Monstruo monstruo, Monstruo m) {
         EntityManager em = HibernateUtil.getEntityManager();
 
-        Monstruo m = em.find(monstruo.getClass(), monstruo.getId());
-        m.setBosque(monstruo.getBosque());
-        m.setEstado(monstruo.getEstado());
-        m.setFuerza(monstruo.getFuerza());
-        m.setNombre(monstruo.getNombre());
-        m.setRareza(monstruo.getRareza());
-        m.setTipo(monstruo.getTipo());
-        m.setVida(monstruo.getVida());
+        monstruo.setBosque(m.getBosque());
+        monstruo.setEstado(m.getEstado());
+        monstruo.setFuerza(m.getFuerza());
+        monstruo.setNombre(m.getNombre());
+        monstruo.setRareza(m.getRareza());
+        monstruo.setTipo(m.getTipo());
+        monstruo.setVida(m.getVida());
 
         em.getTransaction().begin();
-        em.merge(m);
+        em.merge(monstruo);
         em.getTransaction().commit();
         em.close();
 
     }
 
-    public void modificarDragon(Dragon dragon) {
+    public void modificarDragon(Dragon dragon, Dragon d) {
         EntityManager em = HibernateUtil.getEntityManager();
 
-        Dragon d = em.find(dragon.getClass(), dragon.getId());
-        d.setIntensidadFuego(dragon.getIntensidadFuego());
-        d.setNombre(dragon.getNombre());
-        d.setResistencia(dragon.getResistencia());
+        dragon.setIntensidadFuego(d.getIntensidadFuego());
+        dragon.setNombre(d.getNombre());
+        dragon.setResistencia(d.getResistencia());
 
         em.getTransaction().begin();
-        em.merge(d);
+        em.merge(dragon);
         em.getTransaction().commit();
         em.close();
 
     }
 
-    public void modificarBosque(Bosque bosque) {
+    public void modificarBosque(Bosque bosque, Bosque b) {
         EntityManager em = HibernateUtil.getEntityManager();
 
-        Bosque b = em.find(bosque.getClass(), bosque.getId());
-        b.setDragon(bosque.getDragon());
-        b.setListaMonstruos(bosque.getListaMonstruos());
-        b.setMonstruoJefe(bosque.getMonstruoJefe());
-        b.setNivelPeligro(bosque.getNivelPeligro());
-        b.setNombre(bosque.getNombre());
+        bosque.setDragon(b.getDragon());
+        bosque.setListaMonstruos(b.getListaMonstruos());
+        bosque.setMonstruoJefe(b.getMonstruoJefe());
+        bosque.setNivelPeligro(b.getNivelPeligro());
+        bosque.setNombre(b.getNombre());
 
         em.getTransaction().begin();
-        em.merge(b);
+        em.merge(bosque);
         em.getTransaction().commit();
         em.close();
 
