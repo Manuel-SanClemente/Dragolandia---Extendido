@@ -190,7 +190,7 @@ erDiagram
     }
 ```
 
-#### MEJORAS PROPUESTAS
+#### PROPUESTAS DE AMPLIACIÓN
 
 - El usuario controla a un mago, por lo que debería controlarlo, así que solo tendriamos que generar un único mago hasta el final de la partida. Esto lo he puesto en mi código para que el usuario cree su mago, y lo use durante la partida (hecho).
 - Poner más hechizos además de los establecidos en el ejercicio (hecho). 
