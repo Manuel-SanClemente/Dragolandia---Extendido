@@ -30,8 +30,18 @@ public class Interfaz {
         System.out.println("Escribe la vida del mago: ");
         Integer vida = sc.nextInt();
 
+        while (vida <= 0) {
+            System.out.println("La vida del mago no debería ser ni 0 ni negativo. Por favor, escribe la vida del mago: ");
+            vida = sc.nextInt();            
+        }
+
         System.out.println("Escribe la mana del mago: ");
         Integer mana = sc.nextInt();
+
+        while (mana <= 0) {
+            System.out.println("La mana del mago no debería ser ni 0 ni negativo. Por favor, escribe la mana del mago: ");
+            mana = sc.nextInt();            
+        }
 
         sc.close();
 
