@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.model.HibernateUtil;
+import com.example.HibernateUtil;
 import com.example.model.Monstruo;
 
 import jakarta.persistence.EntityManager;
