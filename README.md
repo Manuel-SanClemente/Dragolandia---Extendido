@@ -1,4 +1,4 @@
-# DRAGOLANDIA - VERSIÓN 2
+# DRAGOLANDIA - VERSIÓN 3
 
 #### Autor: Manuel Dono Araújo
 
@@ -118,8 +118,6 @@ classDiagram
     Bosque --> Monstruo
     Dragon --> Monstruo
     Dragon --> Mago
-
-
 ```
 
 ## DISEÑO
@@ -140,11 +138,11 @@ El juego esta diseñado de la siguiente forma:
 
 ```mermaid
 erDiagram
-    Monstruo }|--|| Bosque : tiene
+    Monstruo ||--|| Bosque : tiene
     Mago ||--|| Monstruo : lanzaHechizo
     Mago ||--|| Monstruo : lanzaHechizoEspecial
     Monstruo ||--|| Mago : ataca
-    Hechizo }|--|{ Mago : tieneHechizo
+    Hechizo }|--|| Mago : tieneHechizo
     Dragon ||--|| Mago: exhala
     Dragon ||--|| Monstruo: exhala
     Dragon ||--|| Bosque: pertenece
