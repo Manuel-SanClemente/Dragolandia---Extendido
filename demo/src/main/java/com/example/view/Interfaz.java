@@ -8,11 +8,11 @@ import com.example.model.*;
  */
 public class Interfaz {
     private BaseDatos bd;
-    private Juego juego;
+    private Generador juego;
 
     public Interfaz(){
         bd = BaseDatos.getInstancia();
-        juego = new Juego();
+        juego = new Generador();
     }
 
     /**

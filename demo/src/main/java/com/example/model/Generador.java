@@ -7,8 +7,8 @@ import com.example.model.Hechizo.Efecto;
 import com.example.model.Monstruo.rareza;
 import com.example.model.Monstruo.tipo;
 
-public class Juego {
-    public Juego(){}
+public class Generador {
+    public Generador(){}
 
     /**
      * Esta función se encarga de generar un bosque, con un dragón y lista de monstruos asociados.
