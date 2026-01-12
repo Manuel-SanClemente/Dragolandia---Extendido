@@ -27,6 +27,7 @@ public class Hechizo {
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Integer id;
     private String nombre;
+    private Integer coste;
 
     // Valor enumerado de tipo string
 
@@ -73,9 +74,18 @@ public class Hechizo {
         this.mago = mago;
     }
 
+    public Integer getCoste() {
+        return coste;
+    }
+
+    public void setCoste(Integer coste) {
+        this.coste = coste;
+    }
+
     @Override
     public String toString() {
-        return "Hechizo= id:" + id + ", nombre:" + nombre + ", efecto:" + efecto + ", mago:" + mago;
+        return "Hechizo [id=" + id + ", nombre=" + nombre + ", coste=" + coste + ", efecto=" + efecto + ", mago=" + mago
+                + "]";
     }
 
     /**

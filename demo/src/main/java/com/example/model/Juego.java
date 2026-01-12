@@ -218,26 +218,32 @@ public class Juego {
         switch (efecto) {
             case NIEVE:
                 hechizo.setNombre("Bola de nieve");
+                hechizo.setCoste(100);
                 hechizo.setEfecto(efecto);
                 break;
             case FUEGO:
                 hechizo.setNombre("Bola de fuego");
+                hechizo.setCoste(250);
                 hechizo.setEfecto(efecto);
                 break;
             case RAYO:
                 hechizo.setNombre("Rayo");
+                hechizo.setCoste(500);
                 hechizo.setEfecto(efecto);
                 break;
             case AGUA:
                 hechizo.setNombre("Torbellino de agua");
+                hechizo.setCoste(325);
                 hechizo.setEfecto(efecto);
                 break;
             case TIERRA:
                 hechizo.setNombre("Pueblo de tierra");
+                hechizo.setCoste(275);
                 hechizo.setEfecto(efecto);
                 break;
             case PSIQUE:
                 hechizo.setNombre("Ataque psiquico");
+                hechizo.setCoste(400);
                 hechizo.setEfecto(efecto);
                 break;
         }
