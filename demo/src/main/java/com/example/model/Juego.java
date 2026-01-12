@@ -94,15 +94,12 @@ public class Juego {
 
         if (rarezaJefe == rareza.EPICO) {
             nuevoBosque.setNivelPeligro(3);
-            return nuevoBosque;
         } else if (rarezaJefe == rareza.RARO) {
             nuevoBosque.setNivelPeligro(2);
-            return nuevoBosque;
         } else if (rarezaJefe == rareza.NORMAL) {
             nuevoBosque.setNivelPeligro(1);
-            return nuevoBosque;
         }
-        return null;
+        return nuevoBosque;
     }
 
     /**
@@ -141,7 +138,6 @@ public class Juego {
             
             nuevoMonstruo.setNombre(nuevoTipo+" "+nuevaRareza);
 
-            return nuevoMonstruo;
         } else if (25 < nuevaFuerza && nuevaFuerza < 74 || 250 < nuevaVida && nuevaVida < 749) {
             nuevoMonstruo.setFuerza(nuevaFuerza);
             nuevoMonstruo.setVida(nuevaVida);
@@ -153,7 +149,6 @@ public class Juego {
             
             nuevoMonstruo.setNombre(nuevoTipo+" "+nuevaRareza);
 
-            return nuevoMonstruo;
         } else if (1 < nuevaFuerza && nuevaFuerza < 24 || 1 < nuevaVida && nuevaVida < 249) {
             nuevoMonstruo.setFuerza(nuevaFuerza);
             nuevoMonstruo.setVida(nuevaVida);
@@ -165,11 +160,11 @@ public class Juego {
             
             nuevoMonstruo.setNombre(nuevoTipo+" "+nuevaRareza);
 
-            return nuevoMonstruo;
         } else {
             nuevoMonstruo();
         }
-        return null;
+
+        return nuevoMonstruo;
     }
 
     /**
