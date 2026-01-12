@@ -191,3 +191,12 @@ erDiagram
         Dragon dragon FK
     }
 ```
+
+#### MEJORAS PROPUESTAS
+
+- El usuario controla a un mago, por lo que debería controlarlo, así que solo tendriamos que generar un único mago hasta el final de la partida. Esto lo he puesto en mi código para que el usuario cree su mago, y lo use durante la partida (hecho).
+- Poner más hechizos además de los establecidos en el ejercicio (hecho). 
+- Que cada hechizo tenga un posible efecto sobre el enemigo que afecte su rendimiento en combate.
+- Al implementar este sistema de efectos, que cada uno tenga un coste asociado en forma de la mana.
+- Que el monstruo tenga un tipo y rareza asociadas para la composición de su nombre
+- Implementar aleatoriedad para no depender de que el usuario ponga todos los datos. Esto quiere decir generar monstruos/dragones/hechizos con valores aleatorios, y que las entidades con las que se relacionen reflejen dichos cambios.
