@@ -11,9 +11,7 @@ import jakarta.persistence.EntityManager;
 public class MagoController {
     private static MagoController instancia;
 
-    private MagoController() {
-        System.out.println("\nControlador de Mago inicializado\n");
-    }
+    private MagoController() {}
 
     /**
      * Devuelve la instancia del controlador

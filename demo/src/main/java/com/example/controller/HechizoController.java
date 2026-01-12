@@ -11,9 +11,7 @@ import jakarta.persistence.EntityManager;
 public class HechizoController {
     private static HechizoController instancia;
 
-    private HechizoController() {
-        System.out.println("\nControlador de Hechizo inicializado\n");
-    }
+    private HechizoController() {}
 
     /**
      * Devuelve la instancia del controlador

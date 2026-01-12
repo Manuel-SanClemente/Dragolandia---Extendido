@@ -11,9 +11,7 @@ import jakarta.persistence.EntityManager;
 public class DragonController {
     private static DragonController instancia;
 
-    private DragonController() {
-        System.out.println("\nControlador de Dragon inicializado\n");
-    }
+    private DragonController() {}
 
     /**
      * Devuelve la instancia del controlador

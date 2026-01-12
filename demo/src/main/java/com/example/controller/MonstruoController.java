@@ -11,9 +11,7 @@ import jakarta.persistence.EntityManager;
 public class MonstruoController {
     private static MonstruoController instancia;
 
-    private MonstruoController() {
-        System.out.println("\nControlador de Monstruo inicializado\n");
-    }
+    private MonstruoController() {}
 
     /**
      * Devuelve la instancia del controlador

@@ -66,20 +66,20 @@ public class Interfaz {
 
         System.out.println("Comienza la batalla! Te enfrentas a "+ jefe.getNombre());
 
-        while (mago.getVida() !=0 | jefe.getVida()!=0) {
+        while (mago.getVida() > 0 && jefe.getVida() > 0) {
             mago.lanzarHechizo(jefe);
-            while (jefe.getVida()!=0) {
+            if (jefe.getVida() > 0) {
                 jefe.atacarMago(mago);                
-            }         
+            }
         }
 
         System.out.println("Ha acabado la partida");
 
-        if (mago.getVida() <=0) {
+        if (mago.getVida() <= 0) {
             System.out.println("HAS PERDIDO");
         }
 
-        if (jefe.getVida() <=0 ) {
+        if (jefe.getVida() <= 0 ) {
             System.out.println("HAS GANADO");
         }
         
