@@ -26,7 +26,6 @@ public class BaseDatos {
         System.out.println("\nIniciando conexión con Base de datos \n");
     }
 
-
     /**
      * Devuelve la instancia del controlador
      * @return la instancia de la clase

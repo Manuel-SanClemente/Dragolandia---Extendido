@@ -60,7 +60,7 @@ public class Monstruo {
 
     // Para establecer la relación con la tabla bosque, se establece una foreign key
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "bosque_id")
     private Bosque bosque;
 
