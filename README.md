@@ -198,3 +198,8 @@ erDiagram
 - Al implementar este sistema de efectos, que cada uno tenga un coste asociado en forma de la mana.
 - Que el monstruo tenga un tipo y rareza asociadas para la composición de su nombre
 - Implementar aleatoriedad para no depender de que el usuario ponga todos los datos. Esto quiere decir generar monstruos/dragones/hechizos con valores aleatorios, y que las entidades con las que se relacionen reflejen dichos cambios.
+
+
+#### CLASES EN BASE DE DATOS
+
+[Enlace a PDF](clasesenphpmyadmin.pdf)
