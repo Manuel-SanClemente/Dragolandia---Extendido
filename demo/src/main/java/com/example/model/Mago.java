@@ -23,7 +23,7 @@ public class Mago {
     // Hace referencia a la tabla Hechizos, y cada hechizo esta "mapeado por" el atributo mago que existe en cada uno
     // Para establecer la relación con la tabla hechizo, se establece una foreign key
 
-    @OneToMany(mappedBy = "mago", cascade = CascadeType.ALL, fetch = FetchType.LAZY)   
+    @OneToMany(mappedBy = "mago", cascade = CascadeType.ALL) 
     private List<Hechizo> hechizos;
 
     public Mago() {}
