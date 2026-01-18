@@ -8,7 +8,6 @@ import jakarta.persistence.EntityManager;
 /**
  * Controlador de la clase Bosque. Aplica el formato Singleton 
  */
-
 public class BosqueController {
     private static BosqueController instancia;
 
@@ -36,9 +35,14 @@ public class BosqueController {
             em.getTransaction().begin();
             em.persist(bosque);
             em.getTransaction().commit();
-            em.close();
         } catch (Exception e) {
-            System.err.println(e);
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Error al añadir bosque: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            em.close();
         }
     }
 
@@ -51,10 +55,16 @@ public class BosqueController {
 
         try {
             Bosque b = em.find(Bosque.class, bosque.getId());
-            System.out.println(b);
-            em.close();
+            if (b != null) {
+                System.out.println(b);
+            } else {
+                System.out.println("Bosque no encontrado con ID: " + bosque.getId());
+            }
         } catch (Exception e) {
-            System.err.println(e);
+            System.err.println("Error al buscar bosque: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            em.close();
         }
     }
 
@@ -67,13 +77,23 @@ public class BosqueController {
 
         try {
             em.getTransaction().begin();
-            em.remove(bosque);
+            // Primero obtenemos la entidad gestionada
+            Bosque b = em.find(Bosque.class, bosque.getId());
+            if (b != null) {
+                em.remove(b);
+            } else {
+                System.out.println("Bosque no encontrado para borrar con ID: " + bosque.getId());
+            }
             em.getTransaction().commit();
-            em.close();
         } catch (Exception e) {
-            System.err.println(e);
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Error al borrar bosque: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            em.close();
         }
-
     }
 
     /**
@@ -87,19 +107,30 @@ public class BosqueController {
         EntityManager em = HibernateUtil.getEntityManager();
 
         try {
-            bosque.setDragon(b.getDragon());
-            bosque.setListaMonstruos(b.getListaMonstruos());
-            bosque.setMonstruoJefe(b.getMonstruoJefe());
-            bosque.setNivelPeligro(b.getNivelPeligro());
-            bosque.setNombre(b.getNombre());
-
             em.getTransaction().begin();
-            em.merge(bosque);
+            // Obtenemos la entidad gestionada
+            Bosque bosqueGestionado = em.find(Bosque.class, bosque.getId());
+            
+            if (bosqueGestionado != null) {
+                bosqueGestionado.setDragon(b.getDragon());
+                bosqueGestionado.setListaMonstruos(b.getListaMonstruos());
+                bosqueGestionado.setMonstruoJefe(b.getMonstruoJefe());
+                bosqueGestionado.setNivelPeligro(b.getNivelPeligro());
+                bosqueGestionado.setNombre(b.getNombre());
+                
+                em.merge(bosqueGestionado);
+            } else {
+                System.out.println("Bosque no encontrado para modificar con ID: " + bosque.getId());
+            }
             em.getTransaction().commit();
-            em.close();
         } catch (Exception e) {
-            System.err.println(e);
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Error al modificar bosque: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            em.close();
         }
-
     }
 }

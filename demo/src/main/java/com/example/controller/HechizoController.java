@@ -35,11 +35,15 @@ public class HechizoController {
             em.getTransaction().begin();
             em.persist(hechizo);
             em.getTransaction().commit();
-            em.close();
         } catch (Exception e) {
-            System.err.println(e);
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Error al añadir hechizo: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            em.close();
         }
-
     }
 
     /**
@@ -50,10 +54,16 @@ public class HechizoController {
         EntityManager em = HibernateUtil.getEntityManager();
         try {
             Hechizo h = em.find(Hechizo.class, hechizo.getId());
-            System.out.println(h);
-            em.close();
+            if (h != null) {
+                System.out.println(h);
+            } else {
+                System.out.println("Hechizo no encontrado con ID: " + hechizo.getId());
+            }
         } catch (Exception e) {
-            System.err.println(e);
+            System.err.println("Error al buscar hechizo: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            em.close();
         }
     }
 
@@ -66,11 +76,22 @@ public class HechizoController {
 
         try {
             em.getTransaction().begin();
-            em.remove(hechizo);
+            // Primero obtenemos la entidad gestionada
+            Hechizo h = em.find(Hechizo.class, hechizo.getId());
+            if (h != null) {
+                em.remove(h);
+            } else {
+                System.out.println("Hechizo no encontrado para borrar con ID: " + hechizo.getId());
+            }
             em.getTransaction().commit();
-            em.close();
         } catch (Exception e) {
-            System.err.println(e);
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Error al borrar hechizo: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            em.close();
         }
     }
 
@@ -85,17 +106,28 @@ public class HechizoController {
         EntityManager em = HibernateUtil.getEntityManager();
 
         try {
-            hechizo.setEfecto(h.getEfecto());
-            hechizo.setMago(h.getMago());
-            hechizo.setNombre(h.getNombre());
-
             em.getTransaction().begin();
-            em.merge(hechizo);
+            // Obtenemos la entidad gestionada
+            Hechizo hechizoGestionado = em.find(Hechizo.class, hechizo.getId());
+            
+            if (hechizoGestionado != null) {
+                hechizoGestionado.setEfecto(h.getEfecto());
+                hechizoGestionado.setMago(h.getMago());
+                hechizoGestionado.setNombre(h.getNombre());
+                
+                em.merge(hechizoGestionado);
+            } else {
+                System.out.println("Hechizo no encontrado para modificar con ID: " + hechizo.getId());
+            }
             em.getTransaction().commit();
-            em.close();
         } catch (Exception e) {
-            System.err.println(e);
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Error al modificar hechizo: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            em.close();
         }
     }
-
 }

@@ -34,9 +34,14 @@ public class MonstruoController {
             em.getTransaction().begin();
             em.persist(monstruo);
             em.getTransaction().commit();
-            em.close();
         } catch (Exception e) {
-            System.err.println(e);
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Error al añadir monstruo: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            em.close();
         }
     }
 
@@ -49,10 +54,16 @@ public class MonstruoController {
 
         try {
             Monstruo m = em.find(Monstruo.class, monstruo.getId());
-            System.out.println(m);
-            em.close();
+            if (m != null) {
+                System.out.println(m);
+            } else {
+                System.out.println("Monstruo no encontrado con ID: " + monstruo.getId());
+            }
         } catch (Exception e) {
-            System.err.println(e);
+            System.err.println("Error al buscar monstruo: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            em.close();
         }
     }
 
@@ -65,13 +76,23 @@ public class MonstruoController {
 
         try {
             em.getTransaction().begin();
-            em.remove(monstruo);
+            // Primero obtenemos la entidad gestionada
+            Monstruo m = em.find(Monstruo.class, monstruo.getId());
+            if (m != null) {
+                em.remove(m);
+            } else {
+                System.out.println("Monstruo no encontrado para borrar con ID: " + monstruo.getId());
+            }
             em.getTransaction().commit();
-            em.close();
         } catch (Exception e) {
-            System.err.println(e);
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Error al borrar monstruo: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            em.close();
         }
-
     }
 
     /**
@@ -85,22 +106,32 @@ public class MonstruoController {
         EntityManager em = HibernateUtil.getEntityManager();
 
         try {
-            monstruo.setBosque(m.getBosque());
-            monstruo.setEstado(m.getEstado());
-            monstruo.setFuerza(m.getFuerza());
-            monstruo.setNombre(m.getNombre());
-            monstruo.setRareza(m.getRareza());
-            monstruo.setTipo(m.getTipo());
-            monstruo.setVida(m.getVida());
-
             em.getTransaction().begin();
-            em.merge(monstruo);
+            // Obtenemos la entidad gestionada
+            Monstruo monstruoGestionado = em.find(Monstruo.class, monstruo.getId());
+            
+            if (monstruoGestionado != null) {
+                monstruoGestionado.setBosque(m.getBosque());
+                monstruoGestionado.setEstado(m.getEstado());
+                monstruoGestionado.setFuerza(m.getFuerza());
+                monstruoGestionado.setNombre(m.getNombre());
+                monstruoGestionado.setRareza(m.getRareza());
+                monstruoGestionado.setTipo(m.getTipo());
+                monstruoGestionado.setVida(m.getVida());
+                
+                em.merge(monstruoGestionado);
+            } else {
+                System.out.println("Monstruo no encontrado para modificar con ID: " + monstruo.getId());
+            }
             em.getTransaction().commit();
-            em.close();
         } catch (Exception e) {
-            System.err.println(e);
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Error al modificar monstruo: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            em.close();
         }
-
     }
-
 }

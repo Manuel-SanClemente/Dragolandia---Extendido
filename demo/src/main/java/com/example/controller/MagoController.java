@@ -34,9 +34,14 @@ public class MagoController {
             em.getTransaction().begin();
             em.persist(mago);
             em.getTransaction().commit();
-            em.close();
         } catch (Exception e) {
-            System.err.println(e);
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Error al añadir mago: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            em.close();
         }
     }
 
@@ -49,10 +54,16 @@ public class MagoController {
 
         try {
             Mago m = em.find(Mago.class, mago.getId());
-            System.out.println(m);
-            em.close();
+            if (m != null) {
+                System.out.println(m);
+            } else {
+                System.out.println("Mago no encontrado con ID: " + mago.getId());
+            }
         } catch (Exception e) {
-            System.err.println(e);
+            System.err.println("Error al buscar mago: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            em.close();
         }
     }
 
@@ -64,11 +75,22 @@ public class MagoController {
         EntityManager em = HibernateUtil.getEntityManager();
         try {
             em.getTransaction().begin();
-            em.remove(mago);
+            // Primero obtenemos la entidad gestionada
+            Mago m = em.find(Mago.class, mago.getId());
+            if (m != null) {
+                em.remove(m);
+            } else {
+                System.out.println("Mago no encontrado para borrar con ID: " + mago.getId());
+            }
             em.getTransaction().commit();
-            em.close();
         } catch (Exception e) {
-            System.err.println(e);
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Error al borrar mago: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            em.close();
         }
     }
 
@@ -83,17 +105,29 @@ public class MagoController {
         EntityManager em = HibernateUtil.getEntityManager();
 
         try {
-            mago.setHechizos(m.getHechizos());
-            mago.setMana(m.getMana());
-            mago.setNombre(m.getNombre());
-            mago.setVida(m.getVida());
-
             em.getTransaction().begin();
-            em.merge(mago);
+            // Obtenemos la entidad gestionada
+            Mago magoGestionado = em.find(Mago.class, mago.getId());
+            
+            if (magoGestionado != null) {
+                magoGestionado.setHechizos(m.getHechizos());
+                magoGestionado.setMana(m.getMana());
+                magoGestionado.setNombre(m.getNombre());
+                magoGestionado.setVida(m.getVida());
+                
+                em.merge(magoGestionado);
+            } else {
+                System.out.println("Mago no encontrado para modificar con ID: " + mago.getId());
+            }
             em.getTransaction().commit();
-            em.close();
         } catch (Exception e) {
-            System.err.println(e);
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Error al modificar mago: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            em.close();
         }
     }
 }

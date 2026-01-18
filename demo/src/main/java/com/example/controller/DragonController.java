@@ -35,11 +35,15 @@ public class DragonController {
             em.getTransaction().begin();
             em.persist(dragon);
             em.getTransaction().commit();
-            em.close();
         } catch (Exception e) {
-            System.err.println(e);
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Error al añadir dragon: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            em.close();
         }
-
     }
 
     /**
@@ -51,10 +55,16 @@ public class DragonController {
 
         try {
             Dragon d = em.find(Dragon.class, dragon.getId());
-            System.out.println(d);
-            em.close();
+            if (d != null) {
+                System.out.println(d);
+            } else {
+                System.out.println("Dragon no encontrado con ID: " + dragon.getId());
+            }
         } catch (Exception e) {
-            System.err.println(e);
+            System.err.println("Error al buscar dragon: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            em.close();
         }
     }
 
@@ -67,13 +77,23 @@ public class DragonController {
 
         try {
             em.getTransaction().begin();
-            em.remove(dragon);
+            // Primero obtenemos la entidad gestionada
+            Dragon d = em.find(Dragon.class, dragon.getId());
+            if (d != null) {
+                em.remove(d);
+            } else {
+                System.out.println("Dragon no encontrado para borrar con ID: " + dragon.getId());
+            }
             em.getTransaction().commit();
-            em.close();
         } catch (Exception e) {
-            System.err.println(e);
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Error al borrar dragon: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            em.close();
         }
-
     }
 
     /**
@@ -87,17 +107,28 @@ public class DragonController {
         EntityManager em = HibernateUtil.getEntityManager();
 
         try {
-            dragon.setIntensidadFuego(d.getIntensidadFuego());
-            dragon.setNombre(d.getNombre());
-            dragon.setResistencia(d.getResistencia());
-
             em.getTransaction().begin();
-            em.merge(dragon);
+            // Obtenemos la entidad gestionada
+            Dragon dragonGestionado = em.find(Dragon.class, dragon.getId());
+            
+            if (dragonGestionado != null) {
+                dragonGestionado.setIntensidadFuego(d.getIntensidadFuego());
+                dragonGestionado.setNombre(d.getNombre());
+                dragonGestionado.setResistencia(d.getResistencia());
+                
+                em.merge(dragonGestionado);
+            } else {
+                System.out.println("Dragon no encontrado para modificar con ID: " + dragon.getId());
+            }
             em.getTransaction().commit();
-            em.close();
         } catch (Exception e) {
-            System.err.println(e);
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Error al modificar dragon: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            em.close();
         }
-
     }
 }
